@@ -74,6 +74,7 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .panel{display:none;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
 .panel.on{display:grid}
 .work a{display:block;text-decoration:none}
+.thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .thumb{position:relative;aspect-ratio:16/9;background:var(--blk) center/cover;border:4px solid var(--wht);transition:transform .15s,scale .15s,border-color .15s;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 .thumb::after{content:"▶";position:absolute;left:50%;top:50%;translate:-50% -50%;font-size:24px;line-height:1;color:var(--wht);background:var(--red);padding:10px 20px 10px 24px;border:3px solid var(--wht);transform:skew(-8deg);transition:scale .15s}
 .work a:hover .thumb::after{scale:1.25}
@@ -82,7 +83,7 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .work p{display:inline-block;background:var(--wht);color:var(--blk);font:400 16px/1.3 'Special Elite','IBM Plex Mono',monospace;padding:4px 10px;margin-top:10px;transform:rotate(1.2deg)}
 /* галерея */
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
-.gal div{aspect-ratio:2.39/1;background:#222 center/cover;border:4px solid var(--wht);transition:.15s}
+.gal div{aspect-ratio:2.39/1;background:#222 center/cover;border:4px solid var(--wht);transition:.15s;cursor:zoom-in}
 .gal div:nth-child(odd){transform:rotate(-1deg)}
 .gal div:nth-child(even){transform:rotate(1.2deg)}
 .gal div:nth-child(5n){grid-column:span 2}
@@ -112,6 +113,16 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .modal iframe,.modal video{width:100%;height:100%;border:0;display:block}
 .modal .x{position:absolute;top:-22px;right:-14px;z-index:2;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
 .modal .x:hover{background:var(--wht);color:var(--red)}
+/* просмотр кадров */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.95);display:none;place-items:center;padding:20px}
+.lb.on{display:grid}
+.lb img{max-width:min(1100px,86vw);max-height:78vh;border:5px solid var(--wht);box-shadow:12px 12px 0 var(--red);display:block}
+.lb.on img{animation:pop .35s steps(5)}
+.lb .x{position:fixed;top:22px;right:22px;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
+.lb .x:hover,.lb .nv:hover{background:var(--wht);color:var(--red)}
+.lb .nv{position:fixed;top:50%;translate:0 -50%;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 24px 'Russo One',Rubik,sans-serif;padding:14px 16px;cursor:pointer;transform:skew(-8deg)}
+.lb .prev{left:14px}.lb .next{right:14px}
+.lb .cnt{position:fixed;bottom:22px;left:50%;translate:-50% 0;font:400 20px 'Rubik Mono One',Rubik,sans-serif;background:var(--blk);padding:4px 16px;border:3px solid var(--wht)}
 /* гранж */
 body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.1;mix-blend-mode:screen;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 9 -5.6'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .redbg>.wrap,.stripes>.wrap{position:relative;z-index:2}
@@ -195,6 +206,8 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 </div></section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Video"><div class="stage" id="stage"></div></div>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Frames"><button class="x" aria-label="Close">✕</button><button class="nv prev" aria-label="Previous">◀</button><img id="lbimg" alt=""><button class="nv next" aria-label="Next">▶</button><div class="cnt" id="lbcnt"></div></div>
+
 <footer>© 2026 llotixx</footer>
 
 <script>
@@ -250,7 +263,7 @@ const works = [
 ];
 /* обложка работы / cover: добавьте img:"covers/clip1.jpg" */
 /* кадры / frames: файлы в папке frames */
-const frames = ["shot1.jpg","shot2.jpg","shot3.jpg","shot4.jpg","shot5.jpg","shot6.jpg","shot7.jpg","shot8.jpg","shot9.jpg"];
+const frames = ["frames/shot1.jpg","frames/shot2.jpg","frames/shot3.jpg","frames/shot4.jpg","frames/shot5.jpg","frames/shot6.jpg","frames/shot7.jpg","frames/shot8.jpg","frames/shot9.jpg"];
 
 // Соцсети: вставьте свои ссылки целиком. Telegram-юзернейм — без @ и без ссылки.
 const social = {
@@ -302,6 +315,9 @@ const vimeoCache={};
 function setThumb(el,w){
   const set=u=>el.style.backgroundImage=`url('${u}')`;
   if(w.img) return set(w.img);
+  if(/\.(mp4|webm|mov)$/i.test(w.url||'')){
+    el.innerHTML=`<video src="${w.url}#t=0.5" muted playsinline preload="metadata"></video>`; return;
+  }
   const y=(w.url||'').match(YT);
   if(y){
     set(`https://i.ytimg.com/vi/${y[1]}/hqdefault.jpg`);
@@ -356,7 +372,32 @@ document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dat
 
 document.querySelectorAll('[data-n]').forEach(h=>h.innerHTML=[...h.dataset.n].map(c=>`<span>${c}</span>`).join(''));
 // галерея и рваные края (один раз)
-document.getElementById('gal').innerHTML=frames.map(f=>`<div style="background-image:url('${f}')"></div>`).join('');
+const gal=document.getElementById('gal');
+gal.innerHTML=frames.map((f,n)=>`<div data-f="${n}" role="button" tabindex="0" aria-label="Frame ${n+1}" style="background-image:url('${f}')"></div>`).join('');
+const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg'), lbcnt=document.getElementById('lbcnt');
+let li=0;
+function showFrame(n){
+  li=(n+frames.length)%frames.length; lbimg.src=frames[li];
+  lbcnt.textContent=String(li+1).padStart(2,'0')+' / '+String(frames.length).padStart(2,'0');
+  lbimg.style.animation='none'; void lbimg.offsetWidth; lbimg.style.animation='';
+}
+function openFrame(n){ showFrame(n); lb.classList.add('on'); lb.querySelector('.x').focus(); }
+function closeFrame(){ lb.classList.remove('on'); lbimg.removeAttribute('src'); }
+gal.addEventListener('click',e=>{ const d=e.target.closest('[data-f]'); if(d) openFrame(+d.dataset.f); });
+gal.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ const d=e.target.closest('[data-f]'); if(d){ e.preventDefault(); openFrame(+d.dataset.f); } } });
+lb.querySelector('.x').onclick=closeFrame;
+lb.querySelector('.prev').onclick=()=>showFrame(li-1);
+lb.querySelector('.next').onclick=()=>showFrame(li+1);
+lb.addEventListener('click',e=>{ if(e.target===lb) closeFrame(); });
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('on')) return;
+  if(e.key==='Escape') closeFrame();
+  if(e.key==='ArrowRight') showFrame(li+1);
+  if(e.key==='ArrowLeft') showFrame(li-1);
+});
+let tx=0;
+lb.addEventListener('touchstart',e=>{ tx=e.touches[0].clientX; },{passive:true});
+lb.addEventListener('touchend',e=>{ const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50) showFrame(li+(dx<0?1:-1)); });
 document.querySelectorAll('.cut').forEach(sec=>{
   const w=document.createElement('div'); w.className='tornwrap';
   sec.before(w); w.append(sec); tear(sec,34,1.6,false);
