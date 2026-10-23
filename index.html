@@ -95,6 +95,8 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .about p{background:var(--wht);color:var(--blk);font:400 17px/1.5 Underdog,cursive;padding:14px 20px;margin:0 0 -6px;max-width:58ch;transform:rotate(-1.2deg)}
 .about p:nth-child(2){transform:rotate(.9deg) translateX(16px)}
 .about p:nth-child(3){transform:rotate(-.5deg) translateX(-8px)}
+.about p:nth-child(4){transform:rotate(1deg) translateX(10px)}
+.about p:nth-child(5){transform:rotate(-.7deg) translateX(-6px)}
 .work{position:relative;transform:rotate(var(--r,0deg))}
 .rn,.tag,.work h3,.tg,.folders button{filter:url(#rough)}
 .portrait{aspect-ratio:4/5;background:var(--blk) center/cover;border:6px solid var(--wht)}
@@ -106,6 +108,9 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .star:hover::before{background:var(--blk)}
 .tg{display:inline-block;background:var(--blk);color:var(--wht);font:400 clamp(22px,4vw,38px) 'Rubik Mono One',Rubik,sans-serif;text-transform:uppercase;text-decoration:none;padding:18px 54px 18px 40px;clip-path:polygon(0 0,100% 0,94% 100%,3% 100%);transform:skew(-8deg);box-shadow:inset 0 -8px 0 var(--wht);transition:.15s}
 .tg:hover{background:var(--wht);color:var(--red);transform:skew(-8deg) scale(1.06)}
+.mail{margin-top:28px;font:500 20px Rubik,sans-serif}
+.mail a{color:var(--wht);text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:3px;text-underline-offset:6px;word-break:break-all}
+.mail a:hover{color:var(--red)}
 /* плеер внутри сайта */
 .modal{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:none;place-items:center;padding:20px}
 .modal.on{display:grid}
@@ -202,8 +207,10 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
     <a class="star" data-s="tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
     <a class="star" data-s="instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
     <a class="star" data-s="telegram" href="#" target="_blank" rel="noopener" aria-label="Telegram channel">TG</a>
+    <a class="star" data-s="email" href="#" aria-label="Email">MAIL</a>
   </div>
   <a class="tg" data-s="username" href="#" target="_blank" rel="noopener" data-i="msg"></a>
+  <p class="mail"><a data-s="email" data-show="1" href="#"></a></p>
 </div></section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Video"><div class="stage" id="stage"></div></div>
 
@@ -223,9 +230,11 @@ const I18N = {
     tag:"Оператор · Режиссёр · Монтажёр · Сценарист",
     reel:"Здесь будет шоурил",
     h_works:"Работы", h_frames:"Кадры", h_about:"Обо мне", h_contact:"Связь",
-    about:`<p>Я видеограф и режиссёр из ____. Учусь на режиссёра игрового кино в Санкт-Петербургской школе нового кино.</p>
-           <p>Работаю на всех этапах: пишу сценарий, снимаю, монтирую. Люблю контрастный свет, ритм и живую камеру.</p>
-           <p>Беру заказы на концерты, клипы, рекламу и авторские проекты.</p>`,
+    about:`<p>Я Вова llotixx - видеограф, монтажёр и режиссёр из Санкт-Петербурга. Снимаю, монтирую, делаю цвет и придумываю истории с нуля: от концепта и сценария до финального постпродакшена. Имею за спиной опыт длинною в год, в ходе которого уже удалось поработать с некоторыми артистами и брендами, быстро учусь новым навыкам и активно развиваюсь.</p>
+       <p>Учусь на режиссёра игрового кино в Санкт-Петербургской школе нового кино. Параллельно набираюсь опыта на живых проектах, заказах, и на своем авторском творчестве.</p>
+       <p>Что умею:<br>— съёмка и работа с камерой<br>— монтаж<br>— цветокоррекция и свой визуальный стиль<br>— режиссура, идеи и сценарии<br>— VFX, SFX и моушн-графика, а также работа с 3D</p>
+       <p>Какие программы использую: DaVinci Resolve,Adobe After Effects, TouchDesigner, Blender,Adobe Photoshop, Adobe Audition.</p>
+       <p>Открыт к новым проектам, работе в командах и выездам. Если есть вопросы, жду вас в личных сообщениях.</p>`,
     msg:"Написать мне"
   },
   en: {
@@ -235,9 +244,11 @@ const I18N = {
     tag:"Cinematographer · Director · Editor · Screenwriter",
     reel:"Showreel goes here",
     h_works:"Work", h_frames:"Frames", h_about:"About", h_contact:"Contact",
-    about:`<p>I'm a videographer and director based in ____. I'm studying feature film directing at the Saint Petersburg School of New Cinema.</p>
-           <p>I work at every stage: I write, shoot and edit. I love hard contrast, rhythm and a living camera.</p>
-           <p>Open to commissions: concerts, music videos, commercials and personal projects.</p>`,
+    about:`<p>I'm Vova llotixx — a videographer, editor and director based in Saint Petersburg. I shoot, edit, grade and build stories from scratch: from concept and script all the way to final post-production. I have a year of experience behind me, and in that time I've already worked with a few artists and brands. I pick up new skills fast and keep growing.</p>
+       <p>I'm studying feature film directing at the Saint Petersburg School of New Cinema. Alongside that, I gain experience on live projects, commissions and my own personal work.</p>
+       <p>What I do:<br>— shooting and camera work<br>— editing<br>— color grading and a visual style of my own<br>— directing, ideas and scripts<br>— VFX, SFX and motion graphics, plus 3D work</p>
+       <p>Software I use: DaVinci Resolve, Adobe After Effects, TouchDesigner, Blender, Adobe Photoshop, Adobe Audition.</p>
+       <p>Open to new projects, teamwork and travel for shoots. If you have any questions, please send me a direct message.</p>`,
     msg:"Message me"
   }
 };
@@ -272,7 +283,8 @@ const social = {
   tiktok:    "https://tiktok.com/@llotixx",
   instagram: "https://instagram.com/llotixxfu",
   telegram:  "https://t.me/llotixxfu",
-  username:  "tearzinmyeyez"
+  username:  "tearzinmyeyez",
+  email:     "vpovarov55@gmail.com"
 };
 /* ======================================================= */
 // Шоурил: ссылка на YouTube / Vimeo или путь к файлу (showreel.mp4). Пусто = заглушка.
@@ -407,7 +419,8 @@ document.querySelectorAll('.gal div,.portrait,.reel').forEach(e=>tear(e,9,5,true
 // ссылки на соцсети
 document.querySelectorAll('[data-s]').forEach(a=>{
   const k=a.dataset.s;
-  a.href = k==='username' ? 'https://t.me/'+String(social.username).replace('@','') : social[k];
+  a.href = k==='username' ? 'https://t.me/'+String(social.username).replace('@','') : k==='email' ? 'mailto:'+social.email : social[k];
+  if(a.dataset.show) a.textContent=social.email;
 });
 // динамика: появление при прокрутке, наклон обложек, параллакс шапки
 reveal(document.querySelectorAll('#frames h2,#works h2,#about h2,#contacts h2,.gal div,.portrait,.star,.tg'));
