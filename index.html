@@ -6,7 +6,7 @@
 <title>llotixx</title>
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&display=swap" rel="stylesheet">
 <style>
 :root{--red:#d9000f;--blk:#050505;--wht:#f3eee2;--gry:#bbb}
 *{box-sizing:border-box;margin:0}
@@ -76,23 +76,23 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .work a{display:block;text-decoration:none}
 .thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .thumb{position:relative;aspect-ratio:16/9;background:var(--blk) center/cover;border:4px solid var(--wht);transition:transform .15s,scale .15s,border-color .15s;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
-.thumb::after{content:"▶";position:absolute;left:50%;top:50%;translate:-50% -50%;font-size:24px;line-height:1;color:var(--wht);background:var(--red);padding:10px 20px 10px 24px;border:3px solid var(--wht);transform:skew(-8deg);transition:scale .15s}
+.thumb::after{content:"";position:absolute;left:50%;top:50%;translate:-50% -50%;width:64px;height:46px;background:var(--red) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 3l11 9-11 9z' fill='%23f3eee2'/></svg>") center/46% no-repeat;border:3px solid var(--wht);transform:skew(-8deg);transition:scale .15s}
 .work a:hover .thumb::after{scale:1.25}
 .work a:hover .thumb{scale:1.05;border-color:var(--red)}
 .work h3{display:inline-block;background:var(--blk);color:var(--wht);padding:4px 14px;margin-top:-16px;position:relative;font:400 24px/1.1 'Rubik Distressed','Russo One',Rubik,sans-serif;text-transform:uppercase;transform:skew(-8deg) rotate(-1deg)}
-.work p{display:inline-block;background:var(--wht);color:var(--blk);font:400 16px/1.3 'Special Elite','IBM Plex Mono',monospace;padding:4px 10px;margin-top:10px;transform:rotate(1.2deg)}
+.work p{display:inline-block;background:var(--wht);color:var(--blk);font:400 16px/1.3 Underdog,cursive;padding:4px 10px;margin-top:10px;transform:rotate(1.2deg)}
 /* галерея */
-.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
-.gal div{aspect-ratio:2.39/1;background:#222 center/cover;border:4px solid var(--wht);transition:.15s;cursor:zoom-in}
+.gal{columns:3 230px;column-gap:18px}
+.gal div{break-inside:avoid;margin-bottom:18px;background:#222;border:4px solid var(--wht);transition:.15s;cursor:zoom-in}
+.gal img{display:block;width:100%;height:auto}
 .gal div:nth-child(odd){transform:rotate(-1deg)}
 .gal div:nth-child(even){transform:rotate(1.2deg)}
-.gal div:nth-child(5n){grid-column:span 2}
 .gal div:hover{transform:scale(1.05) rotate(0);border-color:var(--red);z-index:2;position:relative}
 /* обо мне */
 .about{display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center}
 .about .box{position:relative;filter:drop-shadow(6px 6px 0 #000)}
 .about .box::before,.work::before{content:"";position:absolute;top:-10px;left:28%;width:84px;height:24px;background:rgba(238,226,160,.8);transform:rotate(-6deg);z-index:3}
-.about p{background:var(--wht);color:var(--blk);font:400 17px/1.5 'Special Elite','IBM Plex Mono',monospace;padding:14px 20px;margin:0 0 -6px;max-width:58ch;transform:rotate(-1.2deg)}
+.about p{background:var(--wht);color:var(--blk);font:400 17px/1.5 Underdog,cursive;padding:14px 20px;margin:0 0 -6px;max-width:58ch;transform:rotate(-1.2deg)}
 .about p:nth-child(2){transform:rotate(.9deg) translateX(16px)}
 .about p:nth-child(3){transform:rotate(-.5deg) translateX(-8px)}
 .work{position:relative;transform:rotate(var(--r,0deg))}
@@ -122,6 +122,7 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .lb .x:hover,.lb .nv:hover{background:var(--wht);color:var(--red)}
 .lb .nv{position:fixed;top:50%;translate:0 -50%;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 24px 'Russo One',Rubik,sans-serif;padding:14px 16px;cursor:pointer;transform:skew(-8deg)}
 .lb .prev{left:14px}.lb .next{right:14px}
+.lb .nv svg{display:block}
 .lb .cnt{position:fixed;bottom:22px;left:50%;translate:-50% 0;font:400 20px 'Rubik Mono One',Rubik,sans-serif;background:var(--blk);padding:4px 16px;border:3px solid var(--wht)}
 /* гранж */
 body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.1;mix-blend-mode:screen;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 9 -5.6'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
@@ -206,7 +207,7 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 </div></section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Video"><div class="stage" id="stage"></div></div>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Frames"><button class="x" aria-label="Close">✕</button><button class="nv prev" aria-label="Previous">◀</button><img id="lbimg" alt=""><button class="nv next" aria-label="Next">▶</button><div class="cnt" id="lbcnt"></div></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Frames"><button class="x" aria-label="Close">✕</button><button class="nv prev" aria-label="Previous"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M17 3 6 12l11 9z" fill="currentColor"/></svg></button><img id="lbimg" alt=""><button class="nv next" aria-label="Next"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 3l11 9-11 9z" fill="currentColor"/></svg></button><div class="cnt" id="lbcnt"></div></div>
 
 <footer>© 2026 llotixx</footer>
 
@@ -373,7 +374,7 @@ document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>setLang(b.dat
 document.querySelectorAll('[data-n]').forEach(h=>h.innerHTML=[...h.dataset.n].map(c=>`<span>${c}</span>`).join(''));
 // галерея и рваные края (один раз)
 const gal=document.getElementById('gal');
-gal.innerHTML=frames.map((f,n)=>`<div data-f="${n}" role="button" tabindex="0" aria-label="Frame ${n+1}" style="background-image:url('${f}')"></div>`).join('');
+gal.innerHTML=frames.map((f,n)=>`<div data-f="${n}" role="button" tabindex="0" aria-label="Frame ${n+1}"><img src="${f}" alt="" loading="lazy" decoding="async"></div>`).join('');
 const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg'), lbcnt=document.getElementById('lbcnt');
 let li=0;
 function showFrame(n){
