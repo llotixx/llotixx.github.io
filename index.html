@@ -5,10 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>llotixx</title>
 <meta name="description" content="">
+<script>
+/* Сезонная тема: сен–дек = Persona 5, янв–апр = Persona 3 Reload, май–авг = Persona 4.
+   Для проверки добавьте к адресу ?theme=p3 / ?theme=p4 / ?theme=p5 */
+(function(){
+  var q=new URLSearchParams(location.search).get('theme'), m=new Date().getMonth()+1;
+  document.documentElement.dataset.theme=/^p[345]$/.test(q||'')?q:(m>=9?'p5':m<=4?'p3':'p4');
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--red:#d9000f;--blk:#050505;--wht:#f3eee2;--gry:#bbb}
+:root{--red:#d9000f;--blk:#050505;--wht:#f3eee2;--gry:#bbb;--onacc:var(--wht);--accp:var(--red);--paper:#f3eee2;--s1:#000;--s2:#111;--rstripe:rgba(0,0,0,.18);--dots:rgba(0,0,0,.5);--tape:rgba(238,226,160,.8);--modalbg:rgba(5,5,5,.94)}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--blk);color:var(--wht);font:400 17px/1.55 Rubik,system-ui,sans-serif;overflow-x:hidden}
@@ -16,16 +24,16 @@ a{color:inherit}
 :focus-visible{outline:3px solid var(--wht);outline-offset:3px}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 section{padding:80px 0;position:relative}
-.stripes{background:repeating-linear-gradient(-55deg,#000 0 26px,#111 26px 52px)}
-.redbg{background:var(--red);background-image:repeating-linear-gradient(-55deg,transparent 0 40px,rgba(0,0,0,.18) 40px 80px)}
+.stripes{background:repeating-linear-gradient(-55deg,var(--s1) 0 26px,var(--s2) 26px 52px)}
+.redbg{background:var(--red);background-image:repeating-linear-gradient(-55deg,transparent 0 40px,var(--rstripe) 40px 80px)}
 .cut{padding:130px 0}
-.tornwrap{position:relative;z-index:1;margin:-36px 0;filter:drop-shadow(0 -7px 0 #f3eee2) drop-shadow(0 8px 0 #f3eee2)}
+.tornwrap{position:relative;z-index:1;margin:-36px 0;filter:drop-shadow(0 -7px 0 var(--paper)) drop-shadow(0 8px 0 var(--paper))}
 /* заголовки «ransom» */
 .rn{font-weight:900;font-style:italic;text-transform:uppercase;line-height:1;display:inline-block;margin-bottom:34px;transform:skew(-8deg)}
 .rn span{display:inline-block;padding:2px 8px;margin-right:3px;font-size:clamp(28px,5vw,52px)}
 .rn span:nth-child(odd){background:var(--wht);color:var(--blk);transform:rotate(-3deg) translateY(-2px)}
 .rn span:nth-child(even){background:var(--blk);color:var(--wht);transform:rotate(2.5deg) translateY(3px)}
-.rn span:nth-child(3n){background:var(--red);color:var(--wht)}
+.rn span:nth-child(3n){background:var(--red);color:var(--onacc)}
 .rn span:nth-child(5n+1){font-family:'Rubik Mono One',Rubik,sans-serif;font-weight:400}
 .rn span:nth-child(5n+2){font-family:'Ruslan Display',Rubik,serif;font-weight:400;text-transform:none}
 .rn span:nth-child(5n+3){font-family:'Russo One',Rubik,sans-serif;font-weight:400}
@@ -34,10 +42,10 @@ section{padding:80px 0;position:relative}
 /* меню */
 nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:flex-end;align-items:center;gap:6px;padding:10px 16px;pointer-events:none;flex-wrap:wrap}
 nav a,.lang button{pointer-events:auto;background:var(--blk);color:var(--wht);text-decoration:none;font:900 italic 14px Rubik;text-transform:uppercase;padding:6px 20px;clip-path:polygon(12% 0,100% 0,88% 100%,0 100%);border:0;border-bottom:3px solid var(--red);transition:transform .18s steps(3);cursor:pointer}
-nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) skew(-6deg)}
+nav a:hover,.lang button:hover{background:var(--red);color:var(--onacc);transform:translateY(2px) skew(-6deg)}
 .lang{display:flex;gap:2px;margin-left:14px}
 .lang button{padding:6px 16px}
-.lang button[aria-pressed=true]{background:var(--wht);color:var(--red);border-bottom-color:var(--wht)}
+.lang button[aria-pressed=true]{background:var(--wht);color:var(--accp);border-bottom-color:var(--wht)}
 /* hero */
 .hero{position:relative;overflow:hidden;min-height:100vh;padding:110px 0 100px;display:flex;align-items:center}
 .hero>.wrap{position:relative;z-index:2}
@@ -70,7 +78,7 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .folders{display:flex;flex-direction:column;gap:6px}
 .folders button{font:400 24px 'Russo One',Rubik,sans-serif;text-transform:uppercase;text-align:left;color:var(--wht);background:var(--blk);border:0;padding:14px 26px;cursor:pointer;clip-path:polygon(0 0,100% 0,94% 100%,0 100%);transform:skew(-8deg);transition:transform .2s steps(3);border-left:8px solid var(--wht)}
 .folders button:hover{transform:skew(-8deg) translateX(10px)}
-.folders button[aria-selected=true]{background:var(--wht);color:var(--red);border-left-color:var(--red);transform:skew(-8deg) translateX(22px) scale(1.05)}
+.folders button[aria-selected=true]{background:var(--wht);color:var(--accp);border-left-color:var(--red);transform:skew(-8deg) translateX(22px) scale(1.05)}
 .panel{display:none;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
 .panel.on{display:grid}
 .work a{display:block;text-decoration:none}
@@ -90,8 +98,8 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .gal div:hover{transform:scale(1.05) rotate(0);border-color:var(--red);z-index:2;position:relative}
 /* обо мне */
 .about{display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center}
-.about .box{position:relative;filter:drop-shadow(6px 6px 0 #000)}
-.about .box::before,.work::before{content:"";position:absolute;top:-10px;left:28%;width:84px;height:24px;background:rgba(238,226,160,.8);transform:rotate(-6deg);z-index:3}
+.about .box{position:relative;filter:drop-shadow(6px 6px 0 var(--blk))}
+.about .box::before,.work::before{content:"";position:absolute;top:-10px;left:28%;width:84px;height:24px;background:var(--tape);transform:rotate(-6deg);z-index:3}
 .about p{background:var(--wht);color:var(--blk);font:400 17px/1.5 Underdog,cursive;padding:14px 20px;margin:0 0 -6px;max-width:58ch;transform:rotate(-1.2deg)}
 .about p:nth-child(2){transform:rotate(.9deg) translateX(16px)}
 .about p:nth-child(3){transform:rotate(-.5deg) translateX(-8px)}
@@ -107,32 +115,32 @@ nav a:hover,.lang button:hover{background:var(--red);transform:translateY(2px) s
 .star:hover{transform:rotate(25deg) scale(1.2);color:var(--wht)}
 .star:hover::before{background:var(--blk)}
 .tg{display:inline-block;background:var(--blk);color:var(--wht);font:400 clamp(22px,4vw,38px) 'Rubik Mono One',Rubik,sans-serif;text-transform:uppercase;text-decoration:none;padding:18px 54px 18px 40px;clip-path:polygon(0 0,100% 0,94% 100%,3% 100%);transform:skew(-8deg);box-shadow:inset 0 -8px 0 var(--wht);transition:.15s}
-.tg:hover{background:var(--wht);color:var(--red);transform:skew(-8deg) scale(1.06)}
+.tg:hover{background:var(--wht);color:var(--accp);transform:skew(-8deg) scale(1.06)}
 .mail{margin-top:28px;font:500 20px Rubik,sans-serif}
 .mail a{color:var(--wht);text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:3px;text-underline-offset:6px;word-break:break-all}
 .mail a:hover{color:var(--red)}
 /* плеер внутри сайта */
-.modal{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:none;place-items:center;padding:20px}
+.modal{position:fixed;inset:0;z-index:100;background:var(--modalbg);display:none;place-items:center;padding:20px}
 .modal.on{display:grid}
 .modal .stage{width:min(1000px,100%);aspect-ratio:16/9;background:#000;border:5px solid var(--wht);position:relative;box-shadow:12px 12px 0 var(--red)}
 .modal iframe,.modal video{width:100%;height:100%;border:0;display:block}
-.modal .x{position:absolute;top:-22px;right:-14px;z-index:2;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
-.modal .x:hover{background:var(--wht);color:var(--red)}
+.modal .x{position:absolute;top:-22px;right:-14px;z-index:2;background:var(--red);color:var(--onacc);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
+.modal .x:hover{background:var(--wht);color:var(--accp)}
 /* просмотр кадров */
-.lb{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.95);display:none;place-items:center;padding:20px}
+.lb{position:fixed;inset:0;z-index:100;background:var(--modalbg);display:none;place-items:center;padding:20px}
 .lb.on{display:grid}
 .lb img{max-width:min(1100px,86vw);max-height:78vh;border:5px solid var(--wht);box-shadow:12px 12px 0 var(--red);display:block}
 .lb.on img{animation:pop .35s steps(5)}
-.lb .x{position:fixed;top:22px;right:22px;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
-.lb .x:hover,.lb .nv:hover{background:var(--wht);color:var(--red)}
-.lb .nv{position:fixed;top:50%;translate:0 -50%;background:var(--red);color:var(--wht);border:3px solid var(--wht);font:400 24px 'Russo One',Rubik,sans-serif;padding:14px 16px;cursor:pointer;transform:skew(-8deg)}
+.lb .x{position:fixed;top:22px;right:22px;background:var(--red);color:var(--onacc);border:3px solid var(--wht);font:400 22px 'Russo One',Rubik,sans-serif;padding:6px 18px;cursor:pointer;transform:skew(-8deg) rotate(2deg)}
+.lb .x:hover,.lb .nv:hover{background:var(--wht);color:var(--accp)}
+.lb .nv{position:fixed;top:50%;translate:0 -50%;background:var(--red);color:var(--onacc);border:3px solid var(--wht);font:400 24px 'Russo One',Rubik,sans-serif;padding:14px 16px;cursor:pointer;transform:skew(-8deg)}
 .lb .prev{left:14px}.lb .next{right:14px}
 .lb .nv svg{display:block}
 .lb .cnt{position:fixed;bottom:22px;left:50%;translate:-50% 0;font:400 20px 'Rubik Mono One',Rubik,sans-serif;background:var(--blk);padding:4px 16px;border:3px solid var(--wht)}
 /* гранж */
 body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.1;mix-blend-mode:screen;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 9 -5.6'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .redbg>.wrap,.stripes>.wrap{position:relative;z-index:2}
-.redbg::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(rgba(0,0,0,.5) 2px,transparent 2.4px) 0 0/11px 11px;-webkit-mask-image:linear-gradient(115deg,#000,transparent 55%);mask-image:linear-gradient(115deg,#000,transparent 55%)}
+.redbg::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(var(--dots) 2px,transparent 2.4px) 0 0/11px 11px;-webkit-mask-image:linear-gradient(115deg,#000,transparent 55%);mask-image:linear-gradient(115deg,#000,transparent 55%)}
 footer{background:var(--blk);padding:26px 0;color:var(--gry);font-size:14px;text-align:center}
 /* появление при прокрутке */
 /* ломаная анимация «как в игре»: мало кадров, резкий пролёт с перелётом */
@@ -147,10 +155,51 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 .wipe{position:fixed;inset:0;z-index:90;pointer-events:none;visibility:hidden;overflow:hidden}
 .wipe.go{visibility:visible}
 .wipe i{position:absolute;inset:0;background:var(--red)}
-.wipe i+i{background:#000}
+.wipe i+i{background:var(--blk)}
 .wipe.go i{animation:slash .66s steps(9) forwards}
 .wipe.go i+i{animation-delay:.06s}
 @keyframes slash{0%{clip-path:polygon(-60% 0,-40% 0,-70% 100%,-90% 100%)}40%,60%{clip-path:polygon(-60% 0,140% 0,110% 100%,-90% 100%)}100%{clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
+/* ===== СЕЗОННЫЕ ТЕМЫ ===== */
+/* Persona 3 Reload: январь–апрель */
+html[data-theme=p3]{--red:#1a86ff;--blk:#050d24;--wht:#e6f3ff;--gry:#8fb0d8;--onacc:#fff;--accp:#0a4fd1;--paper:#e6f3ff;--s1:#050d24;--s2:#0a1a3d;--rstripe:rgba(255,255,255,.07);--dots:rgba(255,255,255,.26);--tape:rgba(150,210,255,.6);--modalbg:rgba(3,8,24,.95)}
+html[data-theme=p3] .stripes{background:linear-gradient(rgba(26,134,255,.10) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(26,134,255,.10) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(180deg,var(--s1),var(--s2))}
+html[data-theme=p3] .redbg{background-color:#0b45c2;background-image:repeating-linear-gradient(-55deg,transparent 0 40px,var(--rstripe) 40px 80px),linear-gradient(160deg,#1f8fff,#0b45c2 60%,#08236e)}
+html[data-theme=p3] .cut{clip-path:polygon(0 0,100% 44px,100% 100%,0 calc(100% - 44px))!important}
+html[data-theme=p3] .thumb,html[data-theme=p3] .gal div,html[data-theme=p3] .portrait,html[data-theme=p3] .reel,html[data-theme=p3] .about p,html[data-theme=p3] .work p{clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)!important}
+html[data-theme=p3] .rn,html[data-theme=p3] .tag,html[data-theme=p3] .work h3,html[data-theme=p3] .tg,html[data-theme=p3] .folders button{filter:none}
+html[data-theme=p3] .work{transform:none}
+html[data-theme=p3] .about p{transform:none!important}
+html[data-theme=p3] .gal div{transform:none}
+html[data-theme=p3] .gal div:hover{transform:scale(1.04)}
+html[data-theme=p3] .rn span{font-family:'Russo One',Rubik,sans-serif;font-weight:400;text-transform:uppercase}
+html[data-theme=p3] .rn.big span{text-transform:none}
+html[data-theme=p3] .work h3{font-family:'Russo One',Rubik,sans-serif}
+html[data-theme=p3] .work p,html[data-theme=p3] .about p{font-family:Rubik,sans-serif;font-weight:400}
+html[data-theme=p3] .hero::before{background:radial-gradient(circle at 84% 26%,#f4fbff 0 7.5%,rgba(120,190,255,.45) 8% 12%,rgba(26,134,255,.18) 12.5% 20%,transparent 21%),radial-gradient(circle at 70% 12%,#fff 0 .35%,transparent .5%),radial-gradient(circle at 92% 54%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 60% 82%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 10% 20%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 24% 70%,#fff 0 .3%,transparent .45%)}
+html[data-theme=p3] .hero::after{background:linear-gradient(160deg,rgba(26,134,255,.9),rgba(8,35,110,.9));opacity:1}
+/* Persona 4: май–август */
+html[data-theme=p4]{--red:#ffd400;--blk:#0a0a0a;--wht:#fffbe8;--gry:#c9bf8a;--onacc:#0a0a0a;--accp:#0a0a0a;--paper:#fffbe8;--s1:#0a0a0a;--s2:#181408;--rstripe:rgba(0,0,0,.10);--dots:rgba(0,0,0,.45);--tape:rgba(255,120,60,.75);--modalbg:rgba(10,10,10,.95)}
+html[data-theme=p4] body::before{content:"";position:fixed;inset:0;z-index:49;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 4px)}
+html[data-theme=p4] .stripes{background:repeating-linear-gradient(0deg,var(--s1) 0 3px,var(--s2) 3px 6px)}
+html[data-theme=p4] .cut{clip-path:polygon(0% 16.0px,4% 25.6px,8% 30.0px,12% 26.6px,16% 17.4px,20% 7.4px,24% 2.2px,28% 4.5px,32% 13.2px,36% 23.4px,40% 29.6px,44% 28.2px,48% 20.2px,52% 9.8px,56% 2.9px,60% 3.1px,64% 10.5px,68% 20.8px,72% 28.6px,76% 29.4px,80% 22.8px,84% 12.5px,88% 4.1px,92% 2.3px,96% 8.0px,100% 18.1px,100% calc(100% - 27.7px),96% calc(100% - 29.8px),92% calc(100% - 24.3px),88% calc(100% - 14.2px),84% calc(100% - 5.1px),80% calc(100% - 2.0px),76% calc(100% - 6.6px),72% calc(100% - 16.4px),68% calc(100% - 25.9px),64% calc(100% - 30.0px),60% calc(100% - 26.4px),56% calc(100% - 17.0px),52% calc(100% - 7.1px),48% calc(100% - 2.1px),44% calc(100% - 4.7px),40% calc(100% - 13.6px),36% calc(100% - 23.7px),32% calc(100% - 29.6px),28% calc(100% - 28.1px),24% calc(100% - 19.8px),20% calc(100% - 9.5px),16% calc(100% - 2.7px),12% calc(100% - 3.3px),8% calc(100% - 10.8px),4% calc(100% - 21.2px),0% calc(100% - 28.7px))!important}
+html[data-theme=p4] .thumb,html[data-theme=p4] .gal div,html[data-theme=p4] .portrait,html[data-theme=p4] .reel,html[data-theme=p4] .about p,html[data-theme=p4] .work p{clip-path:none!important;border-radius:16px;overflow:hidden}
+html[data-theme=p4] .thumb,html[data-theme=p4] .gal div,html[data-theme=p4] .portrait,html[data-theme=p4] .reel{border-color:var(--blk)}
+html[data-theme=p4] .rn,html[data-theme=p4] .tag,html[data-theme=p4] .work h3,html[data-theme=p4] .tg,html[data-theme=p4] .folders button{filter:none}
+html[data-theme=p4] .rn{transform:rotate(-1.5deg)}
+html[data-theme=p4] .rn span{border-radius:10px}
+html[data-theme=p4] .rn.big span{text-shadow:2px 0 #ff2e63,-2px 0 #00d8ff}
+html[data-theme=p4] .tag{border-radius:999px;transform:rotate(-1.5deg)}
+html[data-theme=p4] .work h3{border-radius:10px;transform:rotate(-1deg)}
+html[data-theme=p4] nav a,html[data-theme=p4] .lang button{clip-path:none;border-radius:999px;border:3px solid var(--red)}
+html[data-theme=p4] nav a:hover,html[data-theme=p4] .lang button:hover{transform:translateY(2px) rotate(-2deg)}
+html[data-theme=p4] .folders button{clip-path:none;border-radius:16px;border:3px solid var(--wht);transform:rotate(-1deg)}
+html[data-theme=p4] .folders button:hover{transform:translateX(8px) rotate(0)}
+html[data-theme=p4] .folders button[aria-selected=true]{transform:translateX(20px) rotate(0);border-color:var(--blk)}
+html[data-theme=p4] .tg{clip-path:none;border-radius:999px;transform:rotate(-1.5deg);box-shadow:inset 0 -6px 0 var(--red)}
+html[data-theme=p4] .tg:hover{transform:rotate(1deg) scale(1.06)}
+html[data-theme=p4] .star::before{clip-path:circle(50%)}
+html[data-theme=p4] .thumb::after{border-radius:50%;width:56px;height:56px;transform:none;border-color:var(--blk);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 3l11 9-11 9z' fill='%230a0a0a'/></svg>")}
+html[data-theme=p4] .hero::after{right:-14%;width:52%;clip-path:circle(50% at 60% 50%);opacity:1}
 @media(max-width:760px){.works,.about{grid-template-columns:1fr}.folders{flex-direction:row;flex-wrap:wrap}.folders button{font-size:18px;padding:10px 18px}.folders button[aria-selected=true]{transform:skew(-8deg) scale(1.04)}.gal div:nth-child(5n){grid-column:auto}nav a{padding:5px 12px;font-size:12px}.lang{margin-left:4px}}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1!important;translate:none!important}*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
