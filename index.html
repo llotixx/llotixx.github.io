@@ -16,7 +16,7 @@
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&family=Unbounded:wght@600;900&family=Nunito:wght@500;800&family=Montserrat:ital,wght@0,500;0,800;1,600;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&family=Unbounded:wght@600;900&family=Nunito:ital,wght@0,500;0,800;1,800;1,900&family=Montserrat:ital,wght@0,500;1,800;1,900&display=swap" rel="stylesheet">
 <style>
 :root{--red:#d9000f;--blk:#050505;--wht:#f3eee2;--gry:#bbb;--onacc:var(--wht);--accp:var(--red);--paper:#f3eee2;--s1:#000;--s2:#111;--rstripe:rgba(0,0,0,.18);--dots:rgba(0,0,0,.5);--tape:rgba(238,226,160,.8);--modalbg:rgba(5,5,5,.94)}
 *{box-sizing:border-box;margin:0}
@@ -161,35 +161,36 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 .wipe.go i{animation:slash .66s steps(9) forwards}
 .wipe.go i+i{animation-delay:.06s}
 @keyframes slash{0%{clip-path:polygon(-60% 0,-40% 0,-70% 100%,-90% 100%)}40%,60%{clip-path:polygon(-60% 0,140% 0,110% 100%,-90% 100%)}100%{clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
-/* ===== ЗАСТАВКА (базовая = Persona 5) ===== */
+/* ===== ЗАСТАВКА (базовая = Persona 5): ник по центру, в него врезается нож, расходятся круги ===== */
 .intro{display:none;position:fixed;inset:0;z-index:80;background:#000;place-items:center;overflow:hidden;cursor:pointer}
 html[data-intro]{overflow:hidden}
 html[data-intro] .intro{display:grid}
 html[data-intro] .rn.big:not(.i-word) span{animation:none!important;opacity:0}
-.intro canvas{display:none;position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.i-tv{display:none}
-.i-word{position:relative;z-index:2;margin:0}
-.intro .i-word.rn.big span{animation-delay:calc(1.1s + var(--n,0)*.07s)}
-.i-skip{position:absolute;right:20px;bottom:20px;z-index:4;background:var(--blk);color:var(--wht);border:2px solid var(--wht);font:900 italic 14px Rubik,sans-serif;padding:6px 16px;cursor:pointer;transform:skew(-8deg)}
-.i-skip:hover{background:var(--red);color:var(--onacc)}
-.i-knife{position:absolute;left:50%;top:50%;width:min(70vw,520px);z-index:3;translate:-50% -50%;animation:knife 1.3s steps(9) .15s both}
-@keyframes knife{0%{translate:-60vw -45vh;rotate:-34deg;opacity:1}40%{translate:-50% -50%;rotate:-6deg}55%{translate:-46% -48%;rotate:-6deg;opacity:1}100%{translate:40vw 40vh;rotate:10deg;opacity:0}}
-.intro::after{content:"";position:absolute;inset:0;z-index:1;background:var(--red);opacity:0;pointer-events:none;animation:iflash .5s steps(4) 1.05s both}
+.intro canvas{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.i-tv,.i-water{display:none}
+.i-word{position:relative;z-index:2;margin:0;animation:ishake .45s steps(5) 1.25s both}
+@keyframes ishake{0%{translate:0 0}20%{translate:-14px 6px}40%{translate:12px -8px}60%{translate:-8px 4px}80%{translate:5px -2px}100%{translate:0 0}}
+.intro .i-word.rn.big span{animation-delay:calc(.15s + var(--n,0)*.07s)}
+.i-knife{position:absolute;left:50%;top:50%;width:min(70vw,520px);z-index:3;transform-origin:0 50%;translate:0 -50%;animation:knife 1.2s steps(9) .4s both}
+@keyframes knife{0%{translate:85vw -30vh;rotate:-14deg}70%{translate:0 -50%;rotate:-8deg}78%{translate:0 -50%;rotate:-5deg}86%{translate:0 -50%;rotate:-9deg}100%{translate:0 -50%;rotate:-8deg}}
+.intro::after{content:"";position:absolute;inset:0;z-index:1;background:var(--red);opacity:0;pointer-events:none;animation:iflash .5s steps(4) 1.25s both}
 @keyframes iflash{0%{opacity:.9}100%{opacity:0}}
 .i-rings{position:absolute;inset:0;z-index:1;pointer-events:none}
 .i-rings i{position:absolute;left:50%;top:50%;width:22vmin;height:22vmin;border:5px solid var(--red);border-radius:50%;translate:-50% -50%;scale:0;opacity:0;animation:ring 1.8s steps(14) both}
-.i-rings i:nth-child(1){animation-delay:1.25s}
-.i-rings i:nth-child(2){animation-delay:1.5s;border-color:var(--wht)}
-.i-rings i:nth-child(3){animation-delay:1.75s}
+.i-rings i:nth-child(1){animation-delay:1.3s}
+.i-rings i:nth-child(2){animation-delay:1.55s;border-color:var(--wht)}
+.i-rings i:nth-child(3){animation-delay:1.8s}
 @keyframes ring{0%{scale:.2;opacity:1}100%{scale:8;opacity:0}}
 /* ===== СЕЗОННЫЕ ТЕМЫ ===== */
-/* ---------- Persona 3 Reload (янв–апр): море, стекло, курсивный гротеск ---------- */
+/* ---------- Persona 3 Reload (янв–апр): подводный градиент, тёмный диск, белые клинья, курсив ---------- */
 html[data-theme=p3]{--red:#1a86ff;--blk:#050d24;--wht:#e6f3ff;--gry:#8fb0d8;--onacc:#fff;--accp:#0a4fd1;--paper:#e6f3ff;--s1:#041033;--s2:#07224f;--rstripe:rgba(255,255,255,.07);--dots:rgba(255,255,255,.26);--tape:rgba(150,210,255,.6);--modalbg:rgba(3,8,24,.95);--cy:#00e0ff;--hot:#ff2a3c;--navy:#0a1a6b}
-html[data-theme=p3] .stripes{background:radial-gradient(ellipse 45% 10% at 30% 3%,rgba(255,255,255,.35),transparent),radial-gradient(ellipse 35% 9% at 78% 7%,rgba(255,255,255,.28),transparent),repeating-radial-gradient(ellipse 90% 40% at 55% -8%,rgba(255,255,255,.10) 0 2px,transparent 2px 26px),linear-gradient(180deg,#22b4f5 0,#1a5ae6 26%,#1033c0 62%,#0a1d85 100%)}
+html[data-theme=p3] body{background:linear-gradient(180deg,#27c3ff 0,#1d6dff 14%,#1445d6 42%,#0f2fb0 70%,#0a1d85 100%);font-family:Nunito,Rubik,system-ui,sans-serif}
+html[data-theme=p3] .stripes{background:none}
+html[data-theme=p3] .hero{background:radial-gradient(ellipse 45% 10% at 30% 3%,rgba(255,255,255,.4),transparent),radial-gradient(ellipse 35% 9% at 78% 7%,rgba(255,255,255,.3),transparent),repeating-radial-gradient(ellipse 90% 40% at 55% -8%,rgba(255,255,255,.12) 0 2px,transparent 2px 26px)}
 html[data-theme=p3] .stripes:not(.hero)::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.3) 0 50%,transparent 50%) 6% 14%/46px 60px no-repeat,linear-gradient(45deg,rgba(255,255,255,.22) 0 50%,transparent 50%) 90% 30%/34px 44px no-repeat,linear-gradient(160deg,rgba(255,255,255,.25) 0 50%,transparent 50%) 82% 78%/54px 38px no-repeat,linear-gradient(20deg,rgba(255,255,255,.2) 0 50%,transparent 50%) 14% 84%/40px 52px no-repeat}
-html[data-theme=p3] .redbg{background-color:#0c2fb8;background-image:linear-gradient(-62deg,#fff 0 7%,transparent 7.2%),repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 18px),radial-gradient(ellipse at 20% 0%,rgba(0,224,255,.5),transparent 60%),linear-gradient(160deg,#1f78ff,#0c2fb8 55%,#081c78)}
+html[data-theme=p3] .redbg{background-color:transparent;background-image:linear-gradient(-62deg,#fff 0 6%,transparent 6.2%),radial-gradient(circle 60vmin at 6% 52%,rgba(7,18,105,.94) 0 98%,transparent 100%),repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 18px)}
 html[data-theme=p3] .redbg::before{background:linear-gradient(135deg,rgba(255,255,255,.28) 0 50%,transparent 50%) 8% 20%/44px 56px no-repeat,linear-gradient(40deg,rgba(255,255,255,.2) 0 50%,transparent 50%) 88% 62%/38px 48px no-repeat,radial-gradient(circle at 12% 78%,rgba(255,255,255,.45) 0 5px,transparent 6px),radial-gradient(circle at 18% 64%,rgba(255,255,255,.35) 0 3px,transparent 4px),radial-gradient(circle at 78% 30%,rgba(255,255,255,.4) 0 6px,transparent 7px),radial-gradient(circle at 60% 88%,rgba(255,255,255,.35) 0 4px,transparent 5px);-webkit-mask-image:none;mask-image:none}
-html[data-theme=p3] #works::after,html[data-theme=p3] #about::after,html[data-theme=p3] #frames::after,html[data-theme=p3] #contacts::after{position:absolute;right:-4%;bottom:6%;z-index:1;pointer-events:none;font:italic 800 clamp(110px,20vw,280px)/1 Montserrat,sans-serif;color:rgba(255,255,255,.10);transform:rotate(-62deg);transform-origin:right bottom;white-space:nowrap}
+html[data-theme=p3] #works::after,html[data-theme=p3] #about::after,html[data-theme=p3] #frames::after,html[data-theme=p3] #contacts::after{position:absolute;right:-4%;bottom:6%;z-index:1;pointer-events:none;font:italic 900 clamp(110px,20vw,280px)/1 Montserrat,sans-serif;color:rgba(255,255,255,.10);transform:rotate(-62deg);transform-origin:right bottom;white-space:nowrap}
 html[data-theme=p3] #works::after{content:"WORK"}
 html[data-theme=p3] #about::after{content:"ABOUT"}
 html[data-theme=p3] #frames::after{content:"FRAMES"}
@@ -205,47 +206,65 @@ html[data-theme=p3] .gal div{transform:none}
 html[data-theme=p3] .gal div:hover{transform:scale(1.04)}
 html[data-theme=p3] .work::before,html[data-theme=p3] .about .box::before{display:none}
 html[data-theme=p3] .about .box{filter:none}
-html[data-theme=p3] .about p{transform:none!important;background:rgba(230,243,255,.12);color:#fff;border:1px solid rgba(190,235,255,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-family:Montserrat,Rubik,sans-serif;font-weight:500}
-/* заголовки: крупный курсив без плашек, белый и тёмно-синий, как «CALENDAR» и «JOBS» */
-html[data-theme=p3] .rn span{background:none!important;box-shadow:none!important;border:0!important;transform:none;padding:0 .03em;margin-right:.02em;font-family:Montserrat,'Russo One',sans-serif;font-style:italic;font-weight:800;text-transform:uppercase;color:#fff;text-shadow:3px 3px 0 var(--navy);letter-spacing:-.02em}
+html[data-theme=p3] .about p{transform:none!important;background:rgba(230,243,255,.12);color:#fff;border:1px solid rgba(190,235,255,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-family:Nunito,Rubik,sans-serif;font-weight:500}
+/* заголовки: тяжёлый курсив без плашек */
+html[data-theme=p3] .rn span{background:none!important;box-shadow:none!important;border:0!important;transform:none;padding:0 .03em;margin-right:.02em;font-family:Montserrat,'Russo One',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;color:#fff;text-shadow:3px 3px 0 var(--navy);letter-spacing:-.04em}
 html[data-theme=p3] .rn span:nth-child(3n){color:var(--navy);text-shadow:3px 3px 0 rgba(255,255,255,.5)}
 html[data-theme=p3] .rn.big span{text-transform:none}
-html[data-theme=p3] .tag{font:italic 700 15px Montserrat,sans-serif;text-transform:none;background:#fff;color:var(--navy)}
-html[data-theme=p3] nav a,html[data-theme=p3] .lang button{background:rgba(5,13,36,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:2px solid var(--cy);font:italic 800 13px Montserrat,sans-serif}
-html[data-theme=p3] nav a:hover,html[data-theme=p3] .lang button:hover{transform:translateY(1px);background:var(--red)}
-/* карточки работ как плашки Social Link: тёмная плашка и голубая полоса */
-html[data-theme=p3] .work h3{display:block;width:fit-content;background:#0b1d7a;color:#fff;font:italic 700 20px/1.15 Montserrat,sans-serif;text-transform:none;padding:6px 16px 6px 12px;margin-top:-16px;transform:skew(-8deg)}
-html[data-theme=p3] .work p{display:block;width:fit-content;background:#5fd4ff;color:var(--navy);font:italic 600 15px/1.3 Montserrat,sans-serif;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;margin-top:0;padding:4px 16px 4px 12px;transform:skew(-8deg)}
-/* меню работ как пауза P3R: голубой «водяной» курсив, выбранный пункт — белая плашка с красными краями */
-html[data-theme=p3] .folders button{position:relative;font:italic 800 28px/1.05 Montserrat,'Russo One',sans-serif;text-transform:uppercase;letter-spacing:-.01em;background:transparent;border:0;clip-path:none;padding:8px 26px;transform:skew(-10deg);transition:transform .45s cubic-bezier(.2,.8,.2,1);color:transparent;background-image:linear-gradient(100deg,#c4f1ff,#5fd0ff,#2aa6ff,#5fd0ff,#c4f1ff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:water 7s linear infinite}
+html[data-theme=p3] .tag{font:italic 900 14px Nunito,sans-serif;text-transform:uppercase;background:#fff;color:var(--navy)}
+/* верхние «окна»: тёмно-синие косые панели как плашки отряда, активная — белая с красными краями */
+html[data-theme=p3] nav a,html[data-theme=p3] .lang button{background:linear-gradient(100deg,#0a1a6b,#12308f);color:#7fe1ff;border:0;border-left:3px solid #fff;clip-path:polygon(10% 0,100% 0,90% 100%,0 100%);padding:8px 24px;font:italic 900 13px Nunito,sans-serif;letter-spacing:.02em;text-transform:uppercase;-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-theme=p3] nav a:hover,html[data-theme=p3] .lang button:hover,html[data-theme=p3] nav a.cur,html[data-theme=p3] .lang button[aria-pressed=true]{background:#fff;color:#0a0a0a;transform:none;text-shadow:1px 1px 0 var(--hot);box-shadow:inset 6px 0 0 var(--hot),inset -6px 0 0 var(--hot)}
+/* карточки работ как плашки Social Link */
+html[data-theme=p3] .work h3{display:block;width:fit-content;background:#0b1d7a;color:#fff;font:italic 800 22px/1.1 Nunito,sans-serif;text-transform:none;padding:6px 18px 6px 12px;margin-top:-16px;transform:skew(-8deg)}
+html[data-theme=p3] .work p{display:block;width:fit-content;background:#5fd4ff;color:var(--navy);font:italic 800 14px/1.3 Nunito,sans-serif;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;margin-top:0;padding:4px 18px 4px 12px;transform:skew(-8deg)}
+/* меню работ как пауза P3R */
+html[data-theme=p3] .folders button{position:relative;font:italic 900 30px/1 Nunito,Montserrat,sans-serif;text-transform:uppercase;letter-spacing:-.02em;background:transparent;border:0;clip-path:none;padding:8px 26px;transform:skew(-10deg);transition:transform .45s cubic-bezier(.2,.8,.2,1);color:transparent;background-image:linear-gradient(100deg,#c4f1ff,#5fd0ff,#2aa6ff,#5fd0ff,#c4f1ff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:water 7s linear infinite}
 html[data-theme=p3] .folders button:hover{transform:skew(-10deg) translateX(8px)}
 html[data-theme=p3] .folders button[aria-selected=true]{background-image:none;background-color:#fff;-webkit-background-clip:border-box;background-clip:border-box;color:#0a0a0a;text-shadow:2px 2px 0 var(--hot);transform:skew(-10deg) translateX(22px);animation:none;border-left:8px solid var(--hot);border-right:8px solid var(--hot)}
 html[data-theme=p3] .folders button[aria-selected=true]::after{content:none}
 @keyframes water{to{background-position:300% 0}}
-/* плавное, «всплывающее» движение вместо рваного */
+/* плавное движение */
 @keyframes floatin{from{opacity:0;translate:0 26px;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
 @keyframes rise{from{opacity:0;translate:0 44px;filter:blur(8px)}to{opacity:1;translate:0 0;filter:blur(0)}}
 @keyframes tide{0%{clip-path:circle(0% at 50% 110%)}45%,60%{clip-path:circle(150% at 50% 110%)}100%{clip-path:circle(0% at 50% -10%)}}
 html[data-theme=p3] .rv.in{animation:floatin .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0)*80ms) backwards}
 html[data-theme=p3] .rn.big span{animation-name:rise;animation-duration:.9s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 html[data-theme=p3] nav a:hover,html[data-theme=p3] .lang button:hover,html[data-theme=p3] .tg:hover,html[data-theme=p3] .work a:hover h3{animation:none}
-html[data-theme=p3] .modal.on .stage,html[data-theme=p3] .lb.on img{animation:floatin .5s ease}
 html[data-theme=p3] .wipe.go i{animation:tide .66s cubic-bezier(.6,0,.3,1) forwards}
 html[data-theme=p3] .wipe.go i+i{animation-delay:.07s}
 html[data-theme=p3] .hero::before{background:radial-gradient(circle at 84% 26%,#f4fbff 0 7.5%,rgba(190,230,255,.45) 8% 12%,rgba(255,255,255,.14) 12.5% 20%,transparent 21%),radial-gradient(circle at 70% 12%,#fff 0 .35%,transparent .5%),radial-gradient(circle at 92% 54%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 60% 82%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 10% 20%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 24% 70%,#fff 0 .3%,transparent .45%)}
 html[data-theme=p3] .hero::after{background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,.05));opacity:1}
-/* заставка P3R: поверхность воды, круги, осколки стекла */
-html[data-theme=p3] .intro{background:radial-gradient(ellipse 50% 14% at 50% 0%,rgba(255,255,255,.45),transparent),repeating-radial-gradient(ellipse 90% 40% at 50% -8%,rgba(255,255,255,.10) 0 2px,transparent 2px 26px),linear-gradient(180deg,#22b4f5 0,#1a5ae6 35%,#0a1d85 100%)}
-html[data-theme=p3] .i-knife{display:none}
-html[data-theme=p3] .intro::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.35) 0 50%,transparent 50%) 14% 22%/52px 66px no-repeat,linear-gradient(45deg,rgba(255,255,255,.26) 0 50%,transparent 50%) 84% 30%/40px 52px no-repeat,linear-gradient(160deg,rgba(255,255,255,.3) 0 50%,transparent 50%) 76% 72%/60px 42px no-repeat,linear-gradient(20deg,rgba(255,255,255,.24) 0 50%,transparent 50%) 20% 78%/44px 56px no-repeat;animation:ifade 1.6s ease .5s both}
-@keyframes ifade{from{opacity:0;translate:0 20px}to{opacity:1;translate:0 0}}
-html[data-theme=p3] .intro::after{background:#fff;animation:iflash 1.1s ease-out 1s both}
-html[data-theme=p3] .i-rings i{border:2px solid rgba(255,255,255,.85);animation:ripple 2.6s cubic-bezier(.2,.6,.3,1) both}
-html[data-theme=p3] .i-rings i:nth-child(1){animation-delay:.15s}
-html[data-theme=p3] .i-rings i:nth-child(2){animation-delay:.6s;border-color:rgba(255,255,255,.85)}
-html[data-theme=p3] .i-rings i:nth-child(3){animation-delay:1.05s}
-@keyframes ripple{0%{scale:.1;opacity:.9}100%{scale:9;opacity:0}}
-html[data-theme=p3] .i-skip{background:rgba(5,13,36,.7);border-color:#fff;font:italic 800 13px Montserrat,sans-serif}
+/* окна просмотра: подводный фон, белая рамка, подсказки в стиле игры «(B) Back», «LB / RB» */
+html[data-theme=p3] .modal,html[data-theme=p3] .lb{background:radial-gradient(ellipse 60% 14% at 50% 0%,rgba(255,255,255,.35),transparent),linear-gradient(180deg,#27c3ff 0,#1d6dff 25%,#1445d6 60%,#0a1d85 100%)}
+html[data-theme=p3] .modal .stage{border:3px solid #fff;box-shadow:10px 10px 0 var(--navy);background:#000}
+html[data-theme=p3] .lb img{border:3px solid #fff;box-shadow:none;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
+html[data-theme=p3] .modal .x,html[data-theme=p3] .lb .x{position:fixed;top:auto;right:26px;bottom:24px;left:auto;background:none;border:0;border-bottom:2px solid rgba(255,255,255,.8);padding:6px 10px 6px 4px;font-size:0;color:#fff;transform:none;display:flex;align-items:center;gap:10px}
+html[data-theme=p3] .modal .x::before,html[data-theme=p3] .lb .x::before{content:"B";width:28px;height:28px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;font:italic 900 14px Montserrat,sans-serif}
+html[data-theme=p3] .modal .x::after,html[data-theme=p3] .lb .x::after{content:"Back";font:italic 800 20px Montserrat,sans-serif}
+html[data-theme=p3] .modal .x:hover,html[data-theme=p3] .lb .x:hover{background:none;color:var(--hot)}
+html[data-theme=p3] .lb .cnt{left:26px;translate:0 0;bottom:20px;background:none;border:0;padding:0;font:italic 900 46px Montserrat,sans-serif;color:#fff;text-shadow:3px 3px 0 var(--navy)}
+html[data-theme=p3] .lb .nv{background:none;border:0;color:#fff;padding:8px 10px;transform:none;font:italic 900 24px Montserrat,sans-serif;display:flex;align-items:center;gap:8px}
+html[data-theme=p3] .lb .nv svg{display:none}
+html[data-theme=p3] .lb .prev::before{content:"";border:9px solid transparent;border-right:14px solid var(--hot);border-left:0}
+html[data-theme=p3] .lb .prev::after{content:"LB"}
+html[data-theme=p3] .lb .next::before{content:"RB"}
+html[data-theme=p3] .lb .next::after{content:"";border:9px solid transparent;border-left:14px solid var(--hot);border-right:0}
+html[data-theme=p3] .lb .nv:hover{background:none;color:var(--cy)}
+/* заставка P3R: поднимается вода, в глубине проявляется логотип */
+html[data-theme=p3] .intro{background:radial-gradient(ellipse 50% 14% at 50% 0%,rgba(255,255,255,.5),transparent),repeating-radial-gradient(ellipse 90% 40% at 50% -8%,rgba(255,255,255,.12) 0 2px,transparent 2px 26px),linear-gradient(180deg,#27c3ff 0,#1d6dff 45%,#0f2fb0 100%)}
+html[data-theme=p3] .i-knife,html[data-theme=p3] .i-rings,html[data-theme=p3] .intro::after{display:none}
+html[data-theme=p3] .i-water{display:block;position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+html[data-theme=p3] .i-water .lv{position:absolute;left:0;right:0;bottom:0;height:112%;translate:0 100%;animation:ifill 2.4s cubic-bezier(.35,.7,.25,1) .1s forwards}
+html[data-theme=p3] .i-water .lv svg{display:block;width:200%;height:70px;animation:iwave 5s linear infinite}
+html[data-theme=p3] .i-water .lv svg path{fill:var(--wc)}
+html[data-theme=p3] .i-water .lv::after{content:"";position:absolute;left:0;right:0;top:69px;bottom:0;background:var(--wc)}
+html[data-theme=p3] .i-water .b{--wc:rgba(95,212,255,.8)}
+html[data-theme=p3] .i-water .f{--wc:#0f3bc4;animation-delay:.45s}
+@keyframes ifill{to{translate:0 0}}
+@keyframes iwave{to{translate:-50% 0}}
+html[data-theme=p3] .intro .i-word{z-index:2;filter:url(#water);opacity:0;animation:iemerge 1.2s ease 1.6s forwards}
+@keyframes iemerge{from{opacity:0;translate:0 30px}to{opacity:1;translate:0 0}}
 /* ---------- Persona 4 (май–авг): жёлтый, ТВ, поп ---------- */
 html[data-theme=p4]{--red:#ffd400;--blk:#0a0a0a;--wht:#fffbe8;--gry:#c9bf8a;--onacc:#0a0a0a;--accp:#0a0a0a;--paper:#fffbe8;--s1:#0a0a0a;--s2:#181408;--rstripe:rgba(0,0,0,.10);--dots:rgba(0,0,0,.45);--tape:rgba(255,120,60,.75);--modalbg:rgba(10,10,10,.95);--cy:#14c3c6;--or:#ff8a1f}
 html[data-theme=p4] body{font-family:Nunito,Rubik,system-ui,sans-serif}
@@ -292,20 +311,33 @@ html[data-theme=p4] .wipe.go i{animation:tv .66s cubic-bezier(.7,0,.3,1) forward
 html[data-theme=p4] .wipe.go i+i{animation-delay:.06s}
 html[data-theme=p4] .hero::before{background:radial-gradient(circle at 88% 18%,var(--or) 0 7%,transparent 7.4%),radial-gradient(circle at 80% 26%,var(--red) 0 2.5%,transparent 2.8%),radial-gradient(circle at 93% 32%,var(--cy) 0 1.6%,transparent 1.9%),radial-gradient(circle at 6% 86%,var(--wht) 0 4%,transparent 4.3%),radial-gradient(circle at 12% 92%,var(--cy) 0 1.4%,transparent 1.7%),linear-gradient(90deg,#fff 0 14%,#ffd400 14% 28%,#14c3c6 28% 42%,#2ecc71 42% 57%,#e83e8c 57% 71%,#e63946 71% 86%,#1d4ed8 86%) 0 100%/100% 14px no-repeat}
 html[data-theme=p4] .hero::after{right:-14%;width:52%;clip-path:circle(50% at 60% 50%);opacity:1}
-/* заставка P4: включение телевизора, помехи, цветные полосы */
-html[data-theme=p4] .intro canvas{display:block;opacity:0;animation:istatic 2.3s linear .5s both}
-@keyframes istatic{0%{opacity:0}12%{opacity:.9}70%{opacity:.9}100%{opacity:0}}
-html[data-theme=p4] .i-knife,html[data-theme=p4] .i-rings{display:none}
+/* заставка P4: включение ТВ и настоящие помехи с виньеткой, как на экране старого телевизора */
+html[data-theme=p4] .intro canvas{display:block;opacity:0;animation:istatic 3s linear .45s both}
+@keyframes istatic{0%{opacity:0}6%{opacity:1}100%{opacity:1}}
+html[data-theme=p4] .i-knife{display:none}
 html[data-theme=p4] .i-tv{display:block;position:absolute;inset:0;z-index:3;background:#fff;pointer-events:none;clip-path:inset(49.6% 100% 49.6% 0);animation:itvon 1s steps(10) both}
 @keyframes itvon{0%{clip-path:inset(49.6% 100% 49.6% 0);opacity:1}30%{clip-path:inset(49.6% 0 49.6% 0)}60%{clip-path:inset(0);opacity:1}100%{clip-path:inset(0);opacity:0}}
-html[data-theme=p4] .intro::before{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;z-index:1;pointer-events:none;background:linear-gradient(90deg,#fff 0 14%,#ffd400 14% 28%,#14c3c6 28% 42%,#2ecc71 42% 57%,#e83e8c 57% 71%,#e63946 71% 86%,#1d4ed8 86%);opacity:0;animation:ibars 1.2s steps(6) 1s both}
-@keyframes ibars{0%,30%,60%{opacity:.9}15%,45%,80%,100%{opacity:0}}
-html[data-theme=p4] .intro::after{content:"CH 04  PLAY \25B6";inset:auto;left:5vw;top:6vh;background:none;font:400 clamp(18px,4vw,38px) 'Rubik Mono One',monospace;color:#2ecc71;opacity:0;animation:iosd 2s steps(2) 1s both}
+html[data-theme=p4] .intro::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 22%,rgba(0,0,0,.88) 100%),repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px)}
+html[data-theme=p4] .intro::after{content:"CH 04  PLAY \25B6\FE0E";inset:auto;left:5vw;top:6vh;background:none;font:400 clamp(18px,4vw,38px) 'Rubik Mono One',monospace;color:#2ecc71;text-shadow:0 0 8px #2ecc71;opacity:0;animation:iosd 2s steps(2) 1s both}
 @keyframes iosd{0%,100%{opacity:0}10%,80%{opacity:1}}
+html[data-theme=p4] .i-rings i{left:0;right:0;top:-16%;width:auto;height:14%;border:0;border-radius:0;translate:none;scale:1;opacity:1;background:linear-gradient(180deg,transparent,rgba(255,255,255,.4),transparent);animation:iroll 1.2s linear .9s 2 both}
+html[data-theme=p4] .i-rings i+i{display:none}
+@keyframes iroll{from{top:-16%}to{top:104%}}
 html[data-theme=p4] .i-word{animation:ijit .25s steps(2) 1.2s 6}
 @keyframes ijit{50%{translate:3px -2px}}
-html[data-theme=p4] .i-skip{border-radius:999px;font-style:normal;border-color:var(--red)}
-
+/* окна просмотра как экран телевизора */
+html[data-theme=p4] .modal,html[data-theme=p4] .lb{background:radial-gradient(ellipse at 50% 0%,rgba(20,195,198,.25),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(255,138,31,.2),transparent 60%),repeating-linear-gradient(0deg,#0a0a0a 0 3px,#181408 3px 6px)}
+html[data-theme=p4] .modal .stage{border:12px solid #151515;border-radius:30px;box-shadow:0 0 0 5px var(--red),12px 12px 0 5px var(--cy);background:#000;overflow:hidden}
+html[data-theme=p4] .modal .stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 2px,transparent 2px 4px)}
+html[data-theme=p4] .modal .stage::before{content:"PLAY";position:absolute;left:18px;top:12px;z-index:2;pointer-events:none;font:400 14px 'Rubik Mono One',monospace;color:#2ecc71;text-shadow:0 0 6px #2ecc71}
+html[data-theme=p4] .lb img{border:12px solid #151515;border-radius:30px;box-shadow:0 0 0 5px var(--red),12px 12px 0 5px var(--cy)}
+html[data-theme=p4] .modal .x,html[data-theme=p4] .lb .x{position:fixed;top:auto;right:24px;bottom:24px;left:auto;background:#e63946;color:#fff;border:3px solid #fff;border-radius:999px;font-size:0;padding:10px 20px;transform:none}
+html[data-theme=p4] .modal .x::after,html[data-theme=p4] .lb .x::after{content:"POWER OFF";font:400 13px 'Rubik Mono One',monospace}
+html[data-theme=p4] .modal .x:hover,html[data-theme=p4] .lb .x:hover{background:#fff;color:#e63946}
+html[data-theme=p4] .lb .cnt{left:24px;top:24px;bottom:auto;translate:0 0;background:none;border:0;padding:0;color:#2ecc71;font:400 clamp(18px,3vw,30px) 'Rubik Mono One',monospace;text-shadow:0 0 8px #2ecc71}
+html[data-theme=p4] .lb .cnt::before{content:"CH "}
+html[data-theme=p4] .lb .nv{width:64px;height:64px;padding:0;display:grid;place-items:center;background:var(--red);color:var(--blk);border:3px solid var(--blk);border-radius:50%;transform:none;box-shadow:4px 4px 0 var(--or)}
+html[data-theme=p4] .lb .nv:hover{background:var(--wht);color:var(--blk)}
 @media(max-width:760px){.works,.about{grid-template-columns:1fr}.folders{flex-direction:row;flex-wrap:wrap}.folders button{font-size:18px;padding:10px 18px}.folders button[aria-selected=true]{transform:skew(-8deg) scale(1.04)}.gal div:nth-child(5n){grid-column:auto}nav a{padding:5px 12px;font-size:12px}.lang{margin-left:4px}}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1!important;translate:none!important}*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
@@ -313,13 +345,14 @@ html[data-theme=p4] .i-skip{border-radius:999px;font-style:normal;border-color:v
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="water" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.03" numOctaves="2" seed="3" result="t"><animate attributeName="baseFrequency" dur="5s" values="0.008 0.03;0.014 0.05;0.008 0.03" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="t" scale="22" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <div class="intro" id="intro" aria-hidden="true">
-  <canvas id="introc" width="160" height="90"></canvas>
+  <canvas id="introc" width="320" height="240"></canvas>
   <div class="i-rings"><i></i><i></i><i></i></div>
   <svg class="i-knife" viewBox="0 0 340 80"><path d="M0 40 L210 12 L262 40 L210 68 Z" fill="#f3eee2"/><path d="M0 40 L262 40 L210 68 Z" fill="#c9c4b6"/><path d="M0 40 L210 12 L262 40" fill="none" stroke="#d9000f" stroke-width="3"/><rect x="258" y="22" width="16" height="36" fill="#d9000f"/><rect x="274" y="30" width="64" height="20" rx="4" fill="#111" stroke="#f3eee2" stroke-width="3"/></svg>
   <div class="i-tv"></div>
+  <div class="i-water"><div class="lv b"><svg viewBox="0 0 2880 70" preserveAspectRatio="none"><path d="M0 35 C180 5 360 65 540 35 S900 5 1080 35 S1260 65 1440 35 C1620 5 1800 65 1980 35 S2340 5 2520 35 S2700 65 2880 35 V70 H0Z"/></svg></div><div class="lv f"><svg viewBox="0 0 2880 70" preserveAspectRatio="none"><path d="M0 35 C180 5 360 65 540 35 S900 5 1080 35 S1260 65 1440 35 C1620 5 1800 65 1980 35 S2340 5 2520 35 S2700 65 2880 35 V70 H0Z"/></svg></div></div>
   <div class="rn big i-word" data-n="llotixx"></div>
-  <button class="i-skip" type="button">SKIP</button>
 </div>
 <nav aria-label="Menu">
   <a href="#top" data-i="nav_start"></a><a href="#works" data-i="nav_works"></a><a href="#frames" data-i="nav_frames"></a><a href="#about" data-i="nav_about"></a><a href="#contacts" data-i="nav_contact"></a>
@@ -611,16 +644,23 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a=>a.addEventListener('cli
   setTimeout(()=>t.scrollIntoView({behavior:'instant'}),330);
   setTimeout(()=>wipe.classList.remove('go'),780);
 }));
+// подсветка текущего раздела в верхнем меню
+const navLinks=[...document.querySelectorAll('nav a[href^="#"]')];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) navLinks.forEach(a=>a.classList.toggle('cur',a.getAttribute('href')==='#'+e.target.id)); }),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('#top,#works,#frames,#about,#contacts').forEach(sec=>spy.observe(sec));
 // заставка при входе: у каждой темы своя
 (function(){
   const root=document.documentElement, intro=document.getElementById('intro');
   if(!root.dataset.intro){ intro.remove(); return; }
-  const th=root.dataset.theme, dur={p5:3700,p3:3500,p4:3400}[th]||3500;
+  const th=root.dataset.theme, dur={p5:3900,p3:3600,p4:3400}[th]||3500;
   let done=false, raf=0;
   if(th==='p4'){
-    const c=document.getElementById('introc'), x=c.getContext('2d'), img=x.createImageData(c.width,c.height); let last=0;
+    const c=document.getElementById('introc'), x=c.getContext('2d'), w=c.width, h=c.height, img=x.createImageData(w,h), px=new Uint32Array(img.data.buffer); let last=0;
     const tick=t=>{ if(done) return;
-      if(t-last>70){ last=t; const d=img.data; for(let i=0;i<d.length;i+=4){ const v=Math.random()*255|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; } x.putImageData(img,0,0); }
+      if(t-last>40){ last=t;
+        for(let y=0;y<h;y++){ const jit=(Math.random()-.5)*60; let p=128;
+          for(let k=0;k<w;k++){ p=p*.55+Math.random()*255*.45; const v=Math.max(0,Math.min(255,p*1.12+jit)); px[y*w+k]=0xff000000|(v<<16)|(v<<8)|v; } }
+        x.putImageData(img,0,0); }
       raf=requestAnimationFrame(tick); };
     raf=requestAnimationFrame(tick);
   }
