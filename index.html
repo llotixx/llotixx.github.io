@@ -14,7 +14,7 @@
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,900;1,900&family=Rubik+Mono+One&family=Russo+One&family=Ruslan+Display&family=Underdog&family=Rubik+Distressed&family=Permanent+Marker&family=PT+Mono&family=Unbounded:wght@600;900&family=Nunito:wght@500;800&display=swap" rel="stylesheet">
 <style>
 :root{--red:#d9000f;--blk:#050505;--wht:#f3eee2;--gry:#bbb;--onacc:var(--wht);--accp:var(--red);--paper:#f3eee2;--s1:#000;--s2:#111;--rstripe:rgba(0,0,0,.18);--dots:rgba(0,0,0,.5);--tape:rgba(238,226,160,.8);--modalbg:rgba(5,5,5,.94)}
 *{box-sizing:border-box;margin:0}
@@ -160,46 +160,95 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 .wipe.go i+i{animation-delay:.06s}
 @keyframes slash{0%{clip-path:polygon(-60% 0,-40% 0,-70% 100%,-90% 100%)}40%,60%{clip-path:polygon(-60% 0,140% 0,110% 100%,-90% 100%)}100%{clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
 /* ===== СЕЗОННЫЕ ТЕМЫ ===== */
-/* Persona 3 Reload: январь–апрель */
-html[data-theme=p3]{--red:#1a86ff;--blk:#050d24;--wht:#e6f3ff;--gry:#8fb0d8;--onacc:#fff;--accp:#0a4fd1;--paper:#e6f3ff;--s1:#050d24;--s2:#0a1a3d;--rstripe:rgba(255,255,255,.07);--dots:rgba(255,255,255,.26);--tape:rgba(150,210,255,.6);--modalbg:rgba(3,8,24,.95)}
-html[data-theme=p3] .stripes{background:linear-gradient(rgba(26,134,255,.10) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(26,134,255,.10) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(180deg,var(--s1),var(--s2))}
-html[data-theme=p3] .redbg{background-color:#0b45c2;background-image:repeating-linear-gradient(-55deg,transparent 0 40px,var(--rstripe) 40px 80px),linear-gradient(160deg,#1f8fff,#0b45c2 60%,#08236e)}
+/* ---------- Persona 3 Reload (янв–апр): море, стекло, плавность ---------- */
+html[data-theme=p3]{--red:#1a86ff;--blk:#050d24;--wht:#e6f3ff;--gry:#8fb0d8;--onacc:#fff;--accp:#0a4fd1;--paper:#e6f3ff;--s1:#041033;--s2:#07224f;--rstripe:rgba(255,255,255,.07);--dots:rgba(255,255,255,.26);--tape:rgba(150,210,255,.6);--modalbg:rgba(3,8,24,.95);--cy:#00e0ff;--hot:#ff2a3c}
+html[data-theme=p3] .stripes{background:radial-gradient(ellipse at 15% 0%,rgba(0,224,255,.20),transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(26,134,255,.25),transparent 55%),repeating-linear-gradient(180deg,rgba(0,224,255,.05) 0 2px,transparent 2px 16px),linear-gradient(180deg,var(--s1),var(--s2))}
+html[data-theme=p3] .redbg{background-color:#0b45c2;background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.06) 0 2px,transparent 2px 18px),radial-gradient(ellipse at 20% 0%,rgba(0,224,255,.45),transparent 60%),linear-gradient(160deg,#18a0ff,#0b45c2 55%,#08236e)}
+html[data-theme=p3] .redbg::before{background:radial-gradient(circle at 12% 78%,rgba(255,255,255,.45) 0 5px,transparent 6px),radial-gradient(circle at 18% 64%,rgba(255,255,255,.35) 0 3px,transparent 4px),radial-gradient(circle at 78% 30%,rgba(255,255,255,.4) 0 6px,transparent 7px),radial-gradient(circle at 86% 46%,rgba(255,255,255,.3) 0 3px,transparent 4px),radial-gradient(circle at 60% 88%,rgba(255,255,255,.35) 0 4px,transparent 5px);-webkit-mask-image:none;mask-image:none}
 html[data-theme=p3] .cut{clip-path:polygon(0 0,100% 44px,100% 100%,0 calc(100% - 44px))!important}
 html[data-theme=p3] .thumb,html[data-theme=p3] .gal div,html[data-theme=p3] .portrait,html[data-theme=p3] .reel,html[data-theme=p3] .about p,html[data-theme=p3] .work p{clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)!important}
+html[data-theme=p3] .thumb,html[data-theme=p3] .gal div,html[data-theme=p3] .portrait{border:2px solid rgba(160,225,255,.85)}
+html[data-theme=p3] .reel{border:3px solid rgba(160,225,255,.85)}
 html[data-theme=p3] .rn,html[data-theme=p3] .tag,html[data-theme=p3] .work h3,html[data-theme=p3] .tg,html[data-theme=p3] .folders button{filter:none}
 html[data-theme=p3] .work{transform:none}
-html[data-theme=p3] .about p{transform:none!important}
 html[data-theme=p3] .gal div{transform:none}
 html[data-theme=p3] .gal div:hover{transform:scale(1.04)}
+html[data-theme=p3] .work::before,html[data-theme=p3] .about .box::before{display:none}
+html[data-theme=p3] .about .box{filter:none}
+html[data-theme=p3] .about p{transform:none!important}
+html[data-theme=p3] .about p,html[data-theme=p3] .work p{background:rgba(230,243,255,.12);color:var(--wht);border:1px solid rgba(160,225,255,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-family:Rubik,sans-serif;font-weight:400}
 html[data-theme=p3] .rn span{font-family:'Russo One',Rubik,sans-serif;font-weight:400;text-transform:uppercase}
 html[data-theme=p3] .rn.big span{text-transform:none}
 html[data-theme=p3] .work h3{font-family:'Russo One',Rubik,sans-serif}
-html[data-theme=p3] .work p,html[data-theme=p3] .about p{font-family:Rubik,sans-serif;font-weight:400}
+html[data-theme=p3] nav a,html[data-theme=p3] .lang button{background:rgba(5,13,36,.72);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:2px solid var(--cy)}
+html[data-theme=p3] nav a:hover,html[data-theme=p3] .lang button:hover{transform:translateY(1px);background:var(--red)}
+/* меню работ как в паузе P3R: текст с «водой» внутри, выбранный пункт — чёрная плашка с курсором-треугольником */
+html[data-theme=p3] .folders button{position:relative;font:400 30px 'Russo One',Rubik,sans-serif;background:transparent;border:0;clip-path:none;padding:10px 26px;transform:skew(-10deg);transition:transform .45s cubic-bezier(.2,.8,.2,1);color:transparent;background-image:linear-gradient(100deg,#00e0ff,#1a86ff,#00c2a8,#1a86ff,#00e0ff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:water 7s linear infinite}
+html[data-theme=p3] .folders button:hover{transform:skew(-10deg) translateX(8px)}
+html[data-theme=p3] .folders button[aria-selected=true]{background-image:none;background-color:var(--blk);-webkit-background-clip:border-box;background-clip:border-box;color:var(--wht);transform:skew(-10deg) translateX(26px);animation:none;box-shadow:inset 0 -3px 0 var(--cy)}
+html[data-theme=p3] .folders button[aria-selected=true]::before{content:"";position:absolute;left:-34px;top:50%;width:26px;height:30px;translate:0 -50%;background:#fff;clip-path:polygon(0 0,100% 50%,0 100%);animation:breathe 1.6s ease-in-out infinite}
+html[data-theme=p3] .folders button[aria-selected=true]::after{content:"";float:none;margin:0;position:absolute;left:-26px;top:50%;width:11px;height:15px;translate:0 -50%;background:var(--hot);clip-path:polygon(0 0,100% 50%,0 100%)}
+@keyframes water{to{background-position:300% 0}}
+@keyframes breathe{50%{scale:1.15}}
+/* плавное, «всплывающее» движение вместо рваного */
+@keyframes floatin{from{opacity:0;translate:0 26px;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes rise{from{opacity:0;translate:0 44px;filter:blur(8px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+@keyframes tide{0%{clip-path:circle(0% at 50% 110%)}45%,60%{clip-path:circle(150% at 50% 110%)}100%{clip-path:circle(0% at 50% -10%)}}
+html[data-theme=p3] .rv.in{animation:floatin .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0)*80ms) backwards}
+html[data-theme=p3] .rn.big span{animation-name:rise;animation-duration:.9s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+html[data-theme=p3] nav a:hover,html[data-theme=p3] .lang button:hover,html[data-theme=p3] .tg:hover,html[data-theme=p3] .work a:hover h3{animation:none}
+html[data-theme=p3] .modal.on .stage,html[data-theme=p3] .lb.on img{animation:floatin .5s ease}
+html[data-theme=p3] .wipe.go i{animation:tide .66s cubic-bezier(.6,0,.3,1) forwards}
+html[data-theme=p3] .wipe.go i+i{animation-delay:.07s}
 html[data-theme=p3] .hero::before{background:radial-gradient(circle at 84% 26%,#f4fbff 0 7.5%,rgba(120,190,255,.45) 8% 12%,rgba(26,134,255,.18) 12.5% 20%,transparent 21%),radial-gradient(circle at 70% 12%,#fff 0 .35%,transparent .5%),radial-gradient(circle at 92% 54%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 60% 82%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 10% 20%,#fff 0 .3%,transparent .45%),radial-gradient(circle at 24% 70%,#fff 0 .3%,transparent .45%)}
 html[data-theme=p3] .hero::after{background:linear-gradient(160deg,rgba(26,134,255,.9),rgba(8,35,110,.9));opacity:1}
-/* Persona 4: май–август */
-html[data-theme=p4]{--red:#ffd400;--blk:#0a0a0a;--wht:#fffbe8;--gry:#c9bf8a;--onacc:#0a0a0a;--accp:#0a0a0a;--paper:#fffbe8;--s1:#0a0a0a;--s2:#181408;--rstripe:rgba(0,0,0,.10);--dots:rgba(0,0,0,.45);--tape:rgba(255,120,60,.75);--modalbg:rgba(10,10,10,.95)}
+/* ---------- Persona 4 (май–авг): жёлтый, ТВ, поп ---------- */
+html[data-theme=p4]{--red:#ffd400;--blk:#0a0a0a;--wht:#fffbe8;--gry:#c9bf8a;--onacc:#0a0a0a;--accp:#0a0a0a;--paper:#fffbe8;--s1:#0a0a0a;--s2:#181408;--rstripe:rgba(0,0,0,.10);--dots:rgba(0,0,0,.45);--tape:rgba(255,120,60,.75);--modalbg:rgba(10,10,10,.95);--cy:#14c3c6;--or:#ff8a1f}
+html[data-theme=p4] body{font-family:Nunito,Rubik,system-ui,sans-serif}
 html[data-theme=p4] body::before{content:"";position:fixed;inset:0;z-index:49;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 4px)}
-html[data-theme=p4] .stripes{background:repeating-linear-gradient(0deg,var(--s1) 0 3px,var(--s2) 3px 6px)}
+html[data-theme=p4] .stripes{background:radial-gradient(ellipse at 50% 0%,rgba(20,195,198,.20),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(255,138,31,.14),transparent 60%),repeating-linear-gradient(0deg,var(--s1) 0 3px,var(--s2) 3px 6px)}
+html[data-theme=p4] .redbg{background-color:var(--red);background-image:radial-gradient(circle at 90% 8%,var(--or) 0 9%,transparent 9.4%),repeating-linear-gradient(-55deg,transparent 0 40px,var(--rstripe) 40px 80px)}
 html[data-theme=p4] .cut{clip-path:polygon(0% 16.0px,4% 25.6px,8% 30.0px,12% 26.6px,16% 17.4px,20% 7.4px,24% 2.2px,28% 4.5px,32% 13.2px,36% 23.4px,40% 29.6px,44% 28.2px,48% 20.2px,52% 9.8px,56% 2.9px,60% 3.1px,64% 10.5px,68% 20.8px,72% 28.6px,76% 29.4px,80% 22.8px,84% 12.5px,88% 4.1px,92% 2.3px,96% 8.0px,100% 18.1px,100% calc(100% - 27.7px),96% calc(100% - 29.8px),92% calc(100% - 24.3px),88% calc(100% - 14.2px),84% calc(100% - 5.1px),80% calc(100% - 2.0px),76% calc(100% - 6.6px),72% calc(100% - 16.4px),68% calc(100% - 25.9px),64% calc(100% - 30.0px),60% calc(100% - 26.4px),56% calc(100% - 17.0px),52% calc(100% - 7.1px),48% calc(100% - 2.1px),44% calc(100% - 4.7px),40% calc(100% - 13.6px),36% calc(100% - 23.7px),32% calc(100% - 29.6px),28% calc(100% - 28.1px),24% calc(100% - 19.8px),20% calc(100% - 9.5px),16% calc(100% - 2.7px),12% calc(100% - 3.3px),8% calc(100% - 10.8px),4% calc(100% - 21.2px),0% calc(100% - 28.7px))!important}
 html[data-theme=p4] .thumb,html[data-theme=p4] .gal div,html[data-theme=p4] .portrait,html[data-theme=p4] .reel,html[data-theme=p4] .about p,html[data-theme=p4] .work p{clip-path:none!important;border-radius:16px;overflow:hidden}
-html[data-theme=p4] .thumb,html[data-theme=p4] .gal div,html[data-theme=p4] .portrait,html[data-theme=p4] .reel{border-color:var(--blk)}
+html[data-theme=p4] .thumb,html[data-theme=p4] .gal div,html[data-theme=p4] .portrait{border:4px solid var(--blk);box-shadow:5px 5px 0 var(--or)}
+html[data-theme=p4] .reel{border:10px solid #151515;border-radius:30px;box-shadow:0 0 0 5px var(--red),12px 12px 0 5px var(--cy)}
+html[data-theme=p4] .reel::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px)}
 html[data-theme=p4] .rn,html[data-theme=p4] .tag,html[data-theme=p4] .work h3,html[data-theme=p4] .tg,html[data-theme=p4] .folders button{filter:none}
 html[data-theme=p4] .rn{transform:rotate(-1.5deg)}
-html[data-theme=p4] .rn span{border-radius:10px}
-html[data-theme=p4] .rn.big span{text-shadow:2px 0 #ff2e63,-2px 0 #00d8ff}
-html[data-theme=p4] .tag{border-radius:999px;transform:rotate(-1.5deg)}
-html[data-theme=p4] .work h3{border-radius:10px;transform:rotate(-1deg)}
-html[data-theme=p4] nav a,html[data-theme=p4] .lang button{clip-path:none;border-radius:999px;border:3px solid var(--red)}
+html[data-theme=p4] .rn span{border-radius:10px;font-family:Unbounded,'Russo One',sans-serif;font-weight:900;text-transform:uppercase}
+html[data-theme=p4] .rn.big span{text-transform:none;text-shadow:2px 0 #ff2e63,-2px 0 #00d8ff}
+html[data-theme=p4] .rn span:nth-child(3n){background:var(--cy);color:var(--blk)}
+html[data-theme=p4] .tag{border-radius:999px;transform:rotate(-1.5deg);font:700 14px Unbounded,'Russo One',sans-serif}
+html[data-theme=p4] .work h3{border-radius:10px;transform:rotate(-1deg);font:700 18px/1.15 Unbounded,'Russo One',sans-serif}
+html[data-theme=p4] .work p,html[data-theme=p4] .about p{font-family:Nunito,Rubik,sans-serif;font-weight:800}
+html[data-theme=p4] .about p{position:relative;overflow:visible;border:3px solid var(--blk);border-radius:22px;margin-bottom:18px}
+html[data-theme=p4] .about p::after{content:"";position:absolute;left:34px;bottom:-12px;width:20px;height:20px;background:var(--wht);border:solid var(--blk);border-width:0 3px 3px 0;transform:rotate(45deg)}
+html[data-theme=p4] nav a,html[data-theme=p4] .lang button{clip-path:none;border-radius:999px;border:3px solid var(--red);font-family:Unbounded,Rubik,sans-serif;font-weight:700;font-style:normal;font-size:12px}
 html[data-theme=p4] nav a:hover,html[data-theme=p4] .lang button:hover{transform:translateY(2px) rotate(-2deg)}
-html[data-theme=p4] .folders button{clip-path:none;border-radius:16px;border:3px solid var(--wht);transform:rotate(-1deg)}
+/* меню работ как ТВ-каналы */
+html[data-theme=p4] .folders{counter-reset:ch}
+html[data-theme=p4] .folders button{font:700 16px/1.2 Unbounded,'Russo One',sans-serif;clip-path:none;border-radius:16px;border:3px solid var(--wht);transform:rotate(-1deg)}
+html[data-theme=p4] .folders button::before{counter-increment:ch;content:"CH" counter(ch,decimal-leading-zero);display:inline-block;margin-right:.7em;padding:2px 8px;border-radius:8px;background:var(--red);color:var(--blk);font-size:.7em}
 html[data-theme=p4] .folders button:hover{transform:translateX(8px) rotate(0)}
 html[data-theme=p4] .folders button[aria-selected=true]{transform:translateX(20px) rotate(0);border-color:var(--blk)}
-html[data-theme=p4] .tg{clip-path:none;border-radius:999px;transform:rotate(-1.5deg);box-shadow:inset 0 -6px 0 var(--red)}
+html[data-theme=p4] .folders button[aria-selected=true]::after{content:"ON AIR";float:right;margin:3px 0 0 .8em;padding:1px 8px;border-radius:999px;background:#e63946;color:#fff;font-size:.6em}
+html[data-theme=p4] .tg{clip-path:none;border-radius:999px;transform:rotate(-1.5deg);box-shadow:inset 0 -6px 0 var(--red);font-family:Unbounded,Rubik,sans-serif;font-weight:900}
 html[data-theme=p4] .tg:hover{transform:rotate(1deg) scale(1.06)}
 html[data-theme=p4] .star::before{clip-path:circle(50%)}
 html[data-theme=p4] .thumb::after{border-radius:50%;width:56px;height:56px;transform:none;border-color:var(--blk);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 3l11 9-11 9z' fill='%230a0a0a'/></svg>")}
+/* прыгучее, «мультяшное» движение + переход как включение ТВ */
+@keyframes bounce{0%{opacity:0;scale:.6;rotate:-5deg}60%{opacity:1;scale:1.08;rotate:1deg}80%{scale:.97}100%{opacity:1;scale:1;rotate:0deg}}
+@keyframes wob{25%{rotate:-3deg}75%{rotate:3deg}}
+@keyframes tv{0%{clip-path:inset(50% 0 50% 0)}40%,60%{clip-path:inset(0)}100%{clip-path:inset(50% 0 50% 0)}}
+html[data-theme=p4] .rv.in{animation:bounce .6s cubic-bezier(.3,1.4,.5,1) calc(var(--i,0)*70ms) backwards}
+html[data-theme=p4] .rn.big span{animation-name:slam;animation-duration:.6s;animation-timing-function:cubic-bezier(.3,1.6,.5,1)}
+html[data-theme=p4] nav a:hover,html[data-theme=p4] .lang button:hover,html[data-theme=p4] .tg:hover,html[data-theme=p4] .work a:hover h3{animation:wob .4s}
+html[data-theme=p4] .modal.on .stage,html[data-theme=p4] .lb.on img{animation:bounce .5s}
+html[data-theme=p4] .wipe.go i{animation:tv .66s cubic-bezier(.7,0,.3,1) forwards}
+html[data-theme=p4] .wipe.go i+i{animation-delay:.06s}
+html[data-theme=p4] .hero::before{background:radial-gradient(circle at 88% 18%,var(--or) 0 7%,transparent 7.4%),radial-gradient(circle at 80% 26%,var(--red) 0 2.5%,transparent 2.8%),radial-gradient(circle at 93% 32%,var(--cy) 0 1.6%,transparent 1.9%),radial-gradient(circle at 6% 86%,var(--wht) 0 4%,transparent 4.3%),radial-gradient(circle at 12% 92%,var(--cy) 0 1.4%,transparent 1.7%),linear-gradient(90deg,#fff 0 14%,#ffd400 14% 28%,#14c3c6 28% 42%,#2ecc71 42% 57%,#e83e8c 57% 71%,#e63946 71% 86%,#1d4ed8 86%) 0 100%/100% 14px no-repeat}
 html[data-theme=p4] .hero::after{right:-14%;width:52%;clip-path:circle(50% at 60% 50%);opacity:1}
+@media(max-width:760px){html[data-theme=p3] .folders button[aria-selected=true]::before,html[data-theme=p3] .folders button[aria-selected=true]::after{display:none}}
 @media(max-width:760px){.works,.about{grid-template-columns:1fr}.folders{flex-direction:row;flex-wrap:wrap}.folders button{font-size:18px;padding:10px 18px}.folders button[aria-selected=true]{transform:skew(-8deg) scale(1.04)}.gal div:nth-child(5n){grid-column:auto}nav a{padding:5px 12px;font-size:12px}.lang{margin-left:4px}}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1!important;translate:none!important}*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
