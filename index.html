@@ -164,10 +164,10 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 @font-face{font-family:'P4 Display';src:local('P4 Display'),url('fonts/P4-Display.woff2') format('woff2'),url('fonts/P4-Display.otf') format('opentype');font-display:swap}
 @font-face{font-family:'P4 UI';src:local('P4 UI'),url('fonts/P4-UI.woff2') format('woff2'),url('fonts/P4-UI.otf') format('opentype');font-weight:100 900;font-display:swap}
 /* ===== Шрифты игр (коммерческие, подключаются только если вы положили файлы в папку fonts) ===== */
-@font-face{font-family:'Skip STD B';src:url('./fonts/SkipSTD-B.woff2') format('woff2'),url('./fonts/SkipSTD-B.otf') format('opentype'),local('Skip STD B');font-style:normal;font-weight:900;font-display:swap}
-@font-face{font-family:'Rodin Pro';src:url('./fonts/RodinPro-DB.woff2') format('woff2'),url('./fonts/RodinPro-DB.otf') format('opentype'),local('FOT-Rodin Pro DB'),local('Rodin Pro');font-style:normal;font-weight:700;font-display:swap}
-@font-face{font-family:'New Rodin Pro';src:url('./fonts/NewRodinPro-DB.woff2') format('woff2'),url('./fonts/NewRodinPro-DB.otf') format('opentype'),local('FOT-NewRodin Pro DB'),local('New Rodin Pro');font-style:normal;font-weight:700;font-display:swap}
-@font-face{font-family:'BM Space';src:url('./fonts/BMSpace.woff2') format('woff2'),url('./fonts/BMSpace.otf') format('opentype'),local('BM Space');font-style:normal;font-weight:900;font-display:swap}
+@font-face{font-family:'Skip STD B';src:local('Skip STD B'),local('SkipSTD-B'),url('fonts/SkipSTD-B.woff2') format('woff2'),url('fonts/SkipSTD-B.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Rodin Pro';src:local('FOT-Rodin Pro DB'),local('Rodin Pro'),url('fonts/RodinPro-DB.woff2') format('woff2'),url('fonts/RodinPro-DB.otf') format('opentype');font-weight:100 900;font-display:swap}
+@font-face{font-family:'New Rodin Pro';src:local('FOT-NewRodin Pro DB'),local('New Rodin Pro'),url('fonts/NewRodinPro-DB.woff2') format('woff2'),url('fonts/NewRodinPro-DB.otf') format('opentype');font-weight:100 900;font-display:swap}
+@font-face{font-family:'BM Space';src:local('BM Space'),url('fonts/BMSpace.woff2') format('woff2'),url('fonts/BMSpace.otf') format('opentype');font-display:swap}
 /* ===== ЗАСТАВКА (базовая = Persona 5): ник по центру, в него врезается нож, расходятся круги ===== */
 .intro{display:none;position:fixed;inset:0;z-index:80;background:#000;place-items:center;overflow:hidden;cursor:pointer}
 html[data-intro]{overflow:hidden}
@@ -912,58 +912,57 @@ html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){margin-left:
   html[data-theme=p3] .tg::after{right:20px;width:30px;height:30px;}
 }
 
+/* ===== P3 ONLY — точечные исправления поверх UI PASS 03 ===== */
+/* Здесь намеренно не меняются существующие назначения шрифтов, задники,
+   цвета, кнопка Message Me и любые правила P4/P5. */
 
-
-/* ===== P3 RELOAD UI PASS 04 — CRISP TITLE, MENU NAV, FRAME REVEAL ===== */
-/* Font stacks: the game fonts load from ./fonts on both desktop and mobile;
-   Montserrat is the reliable web fallback when a local file is unavailable. */
-html[data-theme=p3]{
-  --f-skip:'Skip STD B','Montserrat','Arial',sans-serif;
-  --f-rodin:'New Rodin Pro','Rodin Pro','Montserrat','Arial',sans-serif;
-  --f-space:'BM Space','New Rodin Pro','Montserrat','Arial',sans-serif;
-  font-synthesis:none;
+/* Мобильный Safari/Chrome: те же локальные гарнитуры из папки fonts,
+   но URL-файлы имеют отдельные family-имена и приоритет на узких экранах.
+   Desktop остаётся на исходной схеме v3 (local() -> file). */
+@font-face{
+  font-family:'P3 Mobile Skip';
+  src:url('./fonts/SkipSTD-B.woff2') format('woff2'),url('./fonts/SkipSTD-B.otf') format('opentype');
+  font-display:swap;
 }
-html[data-theme=p3] body{font-family:var(--f-rodin),system-ui,sans-serif;}
-html[data-theme=p3] .rn span,
-html[data-theme=p3] .folders button,
-html[data-theme=p3] .work h3,
-html[data-theme=p3] #works::after,
-html[data-theme=p3] #about::after,
-html[data-theme=p3] #frames::after,
-html[data-theme=p3] #contacts::after{font-family:var(--f-skip)!important;}
-html[data-theme=p3] .tag,
-html[data-theme=p3] nav a,
-html[data-theme=p3] .lang button,
-html[data-theme=p3] .work p,
-html[data-theme=p3] .about p,
-html[data-theme=p3] .star,
-html[data-theme=p3] .i-sub{font-family:var(--f-rodin)!important;}
+@font-face{
+  font-family:'P3 Mobile Rodin';
+  src:url('./fonts/NewRodinPro-DB.woff2') format('woff2'),url('./fonts/NewRodinPro-DB.otf') format('opentype');
+  font-weight:100 900;font-display:swap;
+}
+@font-face{
+  font-family:'P3 Mobile Space';
+  src:url('./fonts/BMSpace.woff2') format('woff2'),url('./fonts/BMSpace.otf') format('opentype');
+  font-display:swap;
+}
 
-/* Keep the giant section labels visually centered instead of sliding below each panel. */
+/* Подписи разделов: центрируем по высоте секции, оставляя их декоративным фоном. */
 html[data-theme=p3] #works::after,
 html[data-theme=p3] #about::after,
 html[data-theme=p3] #frames::after,
 html[data-theme=p3] #contacts::after{
-  top:50%;bottom:auto;right:-5%;
-  font-size:clamp(112px,18vw,270px);line-height:.86;
-  color:rgba(176,226,255,.14);
+  top:50%;bottom:auto;
   transform:translateY(-50%) rotate(-62deg);
   transform-origin:center right;
-  letter-spacing:-.055em;
 }
-html[data-theme=p3] #works::after{right:-7%;top:48%;}
-html[data-theme=p3] #frames::after{right:-3%;top:52%;}
-html[data-theme=p3] #about::after{right:-8%;top:48%;}
-html[data-theme=p3] #contacts::after{right:-6%;top:52%;}
+@media(max-width:760px){
+  html[data-theme=p3] #works::after,
+  html[data-theme=p3] #about::after,
+  html[data-theme=p3] #frames::after,
+  html[data-theme=p3] #contacts::after{
+    top:50%;bottom:auto;right:-13%;
+    transform:translateY(-50%) rotate(-62deg);
+  }
+}
 
-/* Navigation becomes one coherent command strip, with a clear active selection. */
+/* Верхняя навигация: общий command-strip и заметное состояние выбранного раздела.
+   Семейство шрифта остаётся тем же, что было в v3. */
 html[data-theme=p3] nav{
-  gap:5px;justify-content:flex-end;align-items:center;
-  padding:10px 18px;isolation:isolate;
+  isolation:isolate;gap:5px;justify-content:flex-end;align-items:center;
+  padding:10px 18px;
 }
 html[data-theme=p3] nav::before{
   content:"";position:absolute;z-index:-1;inset:3px 9px;
-  background:linear-gradient(105deg,rgba(4,17,71,.94),rgba(8,39,119,.9));
+  background:linear-gradient(105deg,rgba(4,17,71,.94),rgba(8,39,119,.90));
   border-top:1px solid rgba(177,239,255,.28);
   border-bottom:2px solid rgba(22,201,245,.72);
   clip-path:polygon(1.5% 0,100% 0,98.5% 100%,0 100%);
@@ -973,16 +972,16 @@ html[data-theme=p3] .lang button{
   position:relative;display:inline-flex;align-items:center;justify-content:center;
   min-height:36px;padding:7px 16px;
   background:linear-gradient(105deg,#0b246f,#123b9e);
-  color:#b7f3ff;border:0;border-left:3px solid #16c9f5;
+  color:#b7f3ff;border:0;border-left:3px solid var(--p3-azure);
   border-right:1px solid rgba(200,244,255,.22);
   clip-path:polygon(8% 0,100% 0,92% 100%,0 100%);
-  font:700 12px/1 var(--f-rodin);letter-spacing:.075em;
-  text-transform:uppercase;text-decoration:none;
+  font-family:var(--f-rodin);font-size:13px;font-weight:900;
+  letter-spacing:.035em;text-transform:uppercase;text-decoration:none;
   transition:background .18s,color .18s,transform .18s,box-shadow .18s;
 }
 html[data-theme=p3] nav a::after{
   content:"";position:absolute;left:12%;right:12%;bottom:3px;height:2px;
-  background:#ff5b91;transform:scaleX(0);transform-origin:left;
+  background:var(--p3-pink);transform:scaleX(0);transform-origin:left;
   transition:transform .18s;
 }
 html[data-theme=p3] nav a:hover,
@@ -990,7 +989,7 @@ html[data-theme=p3] nav a.cur,
 html[data-theme=p3] .lang button:hover,
 html[data-theme=p3] .lang button[aria-pressed=true]{
   color:#071653;background:linear-gradient(105deg,#f7fdff,#c9f5ff);
-  border-left-color:#ff5b91;transform:translateY(-2px) skew(-5deg);
+  border-left-color:var(--p3-pink);transform:translateY(-2px) skew(-5deg);
   box-shadow:5px 5px 0 rgba(1,10,47,.42);
 }
 html[data-theme=p3] nav a:hover::after,
@@ -998,102 +997,86 @@ html[data-theme=p3] nav a.cur::after{transform:scaleX(1);}
 html[data-theme=p3] .lang{gap:4px;margin-left:8px;}
 html[data-theme=p3] .lang button{min-width:39px;padding:7px 10px;}
 
-/* Intro: simple, clean white fill / white outline flicker. No glow, no double X. */
-@keyframes p3-outline-flicker-clean{
-  0%,9%,22%,38%,52%,69%,83%,100%{
+/* Интро: мигание только между белой заливкой и чистой белой обводкой.
+   Убираем text-shadow/свечение полностью; шрифт и композицию v3 не меняем. */
+@keyframes p3-outline-pulse-v3-clean{
+  0%,8%,20%,28%,48%,56%,76%,84%,100%{
     color:#fff;-webkit-text-fill-color:#fff;-webkit-text-stroke:0 transparent;
     text-shadow:none;
   }
-  11%,20%,40%,49%,71%,80%,86%,91%{
-    color:#fff;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.55px #fff;
+  10%,18%,50%,54%,78%,82%{
+    color:#fff;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.6px #fff;
     text-shadow:none;
   }
 }
-html[data-theme=p3] .intro .i-title{
-  width:max-content;max-width:calc(100vw - 36px);
-}
 html[data-theme=p3] .intro .i-word.rn.big{
-  display:flex;align-items:center;justify-content:flex-start;
-  width:max-content;max-width:100%;white-space:nowrap;
-  gap:.105em;margin:0;letter-spacing:0;
+  gap:.07em;
 }
 html[data-theme=p3] .intro .i-word.rn.big span{
-  flex:0 0 auto;display:block;margin:0!important;padding:0!important;
-  font-family:'Montserrat','Arial',sans-serif!important;
-  font-style:normal!important;font-weight:900!important;
-  font-size:clamp(52px,12.6vw,166px)!important;line-height:.94!important;
-  letter-spacing:0!important;
-  color:#fff;-webkit-text-fill-color:#fff;-webkit-text-stroke:0 transparent;
-  text-shadow:none!important;filter:none!important;
-  animation:p3-outline-flicker-clean 2.9s steps(1,end) calc(1.1s + var(--n,0)*.035s) both!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  filter:none!important;text-shadow:none!important;
+  -webkit-text-stroke:0 transparent;
+  animation:p3-outline-pulse-v3-clean 2.75s steps(1,end) 1.25s both!important;
 }
-/* Give the two final X glyphs a visibly separate pair gap. */
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){margin-left:.075em!important;}
+/* Дополнительный интервал только перед парой финальных x: они не слипаются. */
+html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){
+  margin-left:.11em!important;
+}
 
-/* Frame viewer opens like a Persona menu panel: a diagonal wipe, then the frame slides in. */
-@keyframes p3-frame-wipe{
-  0%{opacity:0;clip-path:polygon(0 0,0 0,0 100%,0 100%);transform:translateX(-24px);}
-  45%{opacity:1;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);transform:translateX(0);}
+/* Открытие кадра: диагональная синяя полоса раскрывает изображение,
+   затем контролы интерфейса появляются короткими UI-рывками. */
+@keyframes p3-frame-wipe-v3{
+  0%{opacity:1;clip-path:polygon(0 0,0 0,0 100%,0 100%);transform:translateX(-20px);}
+  42%{opacity:1;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);transform:translateX(0);}
   100%{opacity:0;clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);}
 }
-@keyframes p3-frame-image-in{
-  0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-22px) scale(.985);}
-  72%{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(4px) scale(1.005);}
+@keyframes p3-frame-image-in-v3{
+  0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-18px) scale(.985);}
+  72%{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(3px) scale(1.004);}
   100%{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1);}
 }
-@keyframes p3-frame-control-in{
-  0%{opacity:0;transform:translateY(12px) skew(-5deg);}
-  100%{opacity:1;transform:translateY(0) skew(-5deg);}
+@keyframes p3-frame-controls-in-v3{
+  0%{opacity:0;transform:translateY(10px);}
+  100%{opacity:1;transform:translateY(0);}
 }
 html[data-theme=p3] .lb{isolation:isolate;}
 html[data-theme=p3] .lb::before{
-  content:"";position:absolute;z-index:0;left:0;top:0;width:100%;height:100%;
-  pointer-events:none;background:linear-gradient(110deg,rgba(22,201,245,.9),rgba(22,201,245,.08));
-  clip-path:polygon(0 0,58% 0,48% 100%,0 100%);opacity:0;
+  content:"";position:absolute;z-index:0;inset:0;pointer-events:none;
+  background:linear-gradient(110deg,rgba(22,201,245,.95),rgba(22,201,245,.3) 58%,rgba(255,93,158,.78));
+  clip-path:polygon(0 0,54% 0,44% 100%,0 100%);opacity:0;
 }
-html[data-theme=p3] .lb.on::before{animation:p3-frame-wipe .46s cubic-bezier(.2,.8,.2,1) both;}
+html[data-theme=p3] .lb.on::before{animation:p3-frame-wipe-v3 .48s cubic-bezier(.2,.8,.2,1) both;}
 html[data-theme=p3] .lb.on #lbimg{
   position:relative;z-index:1;
-  animation:p3-frame-image-in .52s cubic-bezier(.2,.82,.2,1) .04s both!important;
+  animation:p3-frame-image-in-v3 .52s cubic-bezier(.2,.82,.2,1) .04s both!important;
 }
 html[data-theme=p3] .lb.on .nv,
 html[data-theme=p3] .lb.on .x,
 html[data-theme=p3] .lb.on .cnt{
-  animation:p3-frame-control-in .28s ease-out .16s both;
+  animation:p3-frame-controls-in-v3 .28s ease-out .16s both;
 }
-html[data-theme=p3] .lb .nv{transform:skew(-5deg);}
-html[data-theme=p3] .lb .nv:hover{transform:skew(-5deg) translateY(-2px);}
-html[data-theme=p3] .lb .nv:active{transform:skew(-5deg) translateY(1px) scale(.97);}
-html[data-theme=p3] .lb .x{transform:skew(-5deg);}
-html[data-theme=p3] .lb .x:hover{transform:skew(-5deg) translateY(-2px);}
 
 @media(max-width:760px){
+  /* На телефоне загружаем те же файлы шрифтов напрямую, не полагаясь на local(). */
+  html[data-theme=p3]{
+    --f-skip:'P3 Mobile Skip','Skip STD B','Skip STD','Exo 2',sans-serif;
+    --f-rodin:'P3 Mobile Rodin','New Rodin Pro','Rodin Pro','Montserrat',sans-serif;
+    --f-space:'P3 Mobile Space','BM Space','New Rodin Pro','Rodin Pro',sans-serif;
+  }
   html[data-theme=p3] nav{justify-content:center;gap:3px;padding:8px 10px;}
   html[data-theme=p3] nav::before{inset:3px 5px;}
   html[data-theme=p3] nav a,
-  html[data-theme=p3] .lang button{min-height:32px;padding:6px 9px;font-size:10px;letter-spacing:.035em;}
+  html[data-theme=p3] .lang button{
+    min-height:32px;padding:6px 9px;font-size:10px;letter-spacing:.025em;
+  }
   html[data-theme=p3] .lang{gap:3px;margin-left:3px;}
-  html[data-theme=p3] .intro .i-title{
-    position:absolute;left:0;right:0;top:50%;width:100%;max-width:100%;
-    margin:0;padding:0 10px;text-align:center;justify-self:stretch;
-    transform:translateY(-50%);
+  html[data-theme=p3] .intro .i-word.rn.big{gap:.07em;}
+  html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){
+    margin-left:.11em!important;
   }
-  html[data-theme=p3] .intro .i-title::before{display:none;}
-  html[data-theme=p3] .intro .i-sub{font-size:clamp(12px,3.5vw,18px);text-align:center;}
-  html[data-theme=p3] .intro .i-word.rn.big{
-    display:flex;width:100%;max-width:100%;justify-content:center;
-    gap:.09em;margin:0 auto;white-space:nowrap;
+  html[data-theme=p3] .lb.on #lbimg{
+    animation:p3-frame-image-in-v3 .52s cubic-bezier(.2,.82,.2,1) .04s both!important;
   }
-  html[data-theme=p3] .intro .i-word.rn.big span{
-    font-size:clamp(40px,11.5vw,78px)!important;
-    animation-name:p3-outline-flicker-clean!important;
-  }
-  html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){margin-left:.06em!important;}
-  html[data-theme=p3] #works::after,
-  html[data-theme=p3] #about::after,
-  html[data-theme=p3] #frames::after,
-  html[data-theme=p3] #contacts::after{right:-15%;font-size:clamp(100px,24vw,180px);opacity:.1;}
-  html[data-theme=p3] .lb{padding:58px 12px 78px;}
 }
 @media(prefers-reduced-motion:reduce){
   html[data-theme=p3] .intro .i-word.rn.big span,
