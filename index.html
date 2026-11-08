@@ -164,10 +164,10 @@ nav a:hover,.folders button:hover,.tg:hover,.work a:hover h3{animation:jolt .3s 
 @font-face{font-family:'P4 Display';src:local('P4 Display'),url('fonts/P4-Display.woff2') format('woff2'),url('fonts/P4-Display.otf') format('opentype');font-display:swap}
 @font-face{font-family:'P4 UI';src:local('P4 UI'),url('fonts/P4-UI.woff2') format('woff2'),url('fonts/P4-UI.otf') format('opentype');font-weight:100 900;font-display:swap}
 /* ===== Шрифты игр (коммерческие, подключаются только если вы положили файлы в папку fonts) ===== */
-@font-face{font-family:'Skip STD B';src:url('fonts/SkipSTD-B.woff2') format('woff2'),url('fonts/SkipSTD-B.otf') format('opentype');font-weight:900;font-style:normal;font-display:swap}
-@font-face{font-family:'Rodin Pro';src:url('fonts/RodinPro-DB.woff2') format('woff2'),url('fonts/RodinPro-DB.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'New Rodin Pro';src:url('fonts/NewRodinPro-DB.woff2') format('woff2'),url('fonts/NewRodinPro-DB.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}
-@font-face{font-family:'BM Space';src:url('fonts/BMSpace.woff2') format('woff2'),url('fonts/BMSpace.otf') format('opentype');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Skip STD B';src:local('Skip STD B'),local('SkipSTD-B'),url('fonts/SkipSTD-B.woff2') format('woff2'),url('fonts/SkipSTD-B.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Rodin Pro';src:local('FOT-Rodin Pro DB'),local('Rodin Pro'),url('fonts/RodinPro-DB.woff2') format('woff2'),url('fonts/RodinPro-DB.otf') format('opentype');font-weight:100 900;font-display:swap}
+@font-face{font-family:'New Rodin Pro';src:local('FOT-NewRodin Pro DB'),local('New Rodin Pro'),url('fonts/NewRodinPro-DB.woff2') format('woff2'),url('fonts/NewRodinPro-DB.otf') format('opentype');font-weight:100 900;font-display:swap}
+@font-face{font-family:'BM Space';src:local('BM Space'),url('fonts/BMSpace.woff2') format('woff2'),url('fonts/BMSpace.otf') format('opentype');font-display:swap}
 /* ===== ЗАСТАВКА (базовая = Persona 5): ник по центру, в него врезается нож, расходятся круги ===== */
 .intro{display:none;position:fixed;inset:0;z-index:80;background:#000;place-items:center;overflow:hidden;cursor:pointer}
 html[data-intro]{overflow:hidden}
@@ -914,316 +914,261 @@ html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){margin-left:
 
 
 
-/* ===== P3 ONLY — точечные исправления поверх исходной v3 ===== */
-/* Не меняем семейства шрифтов, композиции секций, кнопку в целом и P4/P5. */
+/* ===== P3 ONLY — focused polish based on the approved v3 =====
+/* Preserve v3 typography and layouts. P4 / P5 remain untouched. */
 
-/* 1) Интро: спокойный, ровный zoom без дрожащего CSS scale. */
-@keyframes p3-intro-zoom-smooth{
-  0%{transform:translateZ(0) scale(1)}
-  100%{transform:translateZ(0) scale(1.035)}
+/* Intro: the background moves subtly and continuously, without animating the
+   individual CSS scale property that caused visible stepping/judder. */
+@keyframes p3-scene-zoom-smooth {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(0,0,0) scale(1.018); }
 }
-html[data-theme=p3] .i-scene{
-  scale:1;
-  transform-origin:50% 50%;
-  backface-visibility:hidden;
-  will-change:transform;
-  animation:ifadein .45s ease both,p3-intro-zoom-smooth 4.5s cubic-bezier(.2,.62,.28,1) both!important;
-}
-
-/* 2) Надпись: синяя непрозрачная UI-подложка не даёт линиям сцены
-      просвечивать через прозрачную часть букв в фазе outline. */
-html[data-theme=p3] .intro .i-word.rn.big{
-  position:relative;
-  isolation:isolate;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  width:max-content;
-  max-width:100%;
-  white-space:nowrap;
-  gap:.035em;
-  padding:.045em .12em .075em!important;
-  margin:0;
-}
-html[data-theme=p3] .intro .i-word.rn.big::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:.035em -.10em .025em -.10em;
-  background:linear-gradient(105deg,#07145c 0%,#0b278e 72%,#07145c 100%);
-  border-left:4px solid #ff5d9e;
-  border-right:2px solid #16c9f5;
-  clip-path:polygon(1.5% 0,100% 0,98.5% 100%,0 100%);
+html[data-theme=p3] .i-scene {
+  scale: 1 !important;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: ifadein .45s ease both, p3-scene-zoom-smooth 8s cubic-bezier(.22,.61,.36,1) both !important;
 }
 
-/* Обычные буквы мигают только заливкой/чёткой обводкой — без свечения. */
-@keyframes p3-intro-letter-flicker{
-  0%,12%,48%,64%,90%,100%{
-    color:#fff;
-    -webkit-text-fill-color:#fff;
-    -webkit-text-stroke:0 transparent;
-    text-shadow:none;
+/* Put a solid, angled blue UI strip behind the lettering. During outline
+   frames the scene can no longer show through the counters/crossings in X or t.
+   No glow, no extra inner strokes, and no font-family/size/weight changes. */
+html[data-theme=p3] .intro .i-word.rn.big {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(100deg, rgba(5,25,115,.98), rgba(8,43,151,.98));
+  border-left: 4px solid #ff5d9e;
+  border-right: 2px solid #83f0ff;
+  clip-path: polygon(1.4% 0,100% 0,98.6% 100%,0 100%);
+  padding: .035em .12em .055em !important;
+  margin: 0 !important;
+}
+html[data-theme=p3] .intro .i-word.rn.big span {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-shadow: none !important;
+  -webkit-text-stroke-width: 0;
+  animation: p3-title-flicker 2.7s steps(1,end) 1.8s infinite !important;
+}
+/* Synchronous timing keeps the two final x characters in the same phase and
+   prevents the right side of the name looking heavier than the rest. */
+@keyframes p3-title-flicker {
+  0%, 9%, 21%, 43%, 55%, 77%, 89%, 100% {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke: 0 transparent;
+    text-shadow: none;
   }
-  14%,46%,66%,88%{
-    color:transparent;
-    -webkit-text-fill-color:transparent;
-    -webkit-text-stroke:2px #fff;
-    text-shadow:none;
-  }
-}
-html[data-theme=p3] .intro .i-word.rn.big span{
-  animation:p3-intro-letter-flicker 2.35s steps(1,end) 1.2s infinite!important;
-  text-shadow:none!important;
-}
-
-/* X рисуем одним цельным силуэтом. У SVG единый внешний контур, поэтому
-   в центре нет внутренних линий, возникающих при обводке двух диагоналей. */
-@keyframes p3-intro-x-fill{
-  0%,12%,48%,64%,90%,100%{opacity:1}
-  14%,46%,66%,88%{opacity:0}
-}
-@keyframes p3-intro-x-outline{
-  0%,12%,48%,64%,90%,100%{opacity:0}
-  14%,46%,66%,88%{opacity:1}
-}
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){
-  position:relative;
-  display:block!important;
-  flex:0 0 .78em;
-  width:.78em;
-  height:.95em;
-  margin:0 .015em!important;
-  padding:0!important;
-  color:transparent!important;
-  -webkit-text-fill-color:transparent!important;
-  -webkit-text-stroke:0 transparent!important;
-  text-shadow:none!important;
-  font-size:clamp(54px,13.5vw,174px)!important;
-  line-height:.95;
-  overflow:visible;
-}
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2)::before,
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2)::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  display:block;
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:100% 100%;
-  pointer-events:none;
-}
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2)::before{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' d='M12 4H34L50 31L66 4H88L62 50L88 96H66L50 69L34 96H12L38 50Z'/%3E%3C/svg%3E");
-  animation:p3-intro-x-fill 2.35s steps(1,end) 1.2s infinite;
-}
-html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2)::after{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='3.4' stroke-linejoin='round' d='M12 4H34L50 31L66 4H88L62 50L88 96H66L50 69L34 96H12L38 50Z'/%3E%3C/svg%3E");
-  animation:p3-intro-x-outline 2.35s steps(1,end) 1.2s infinite;
-}
-
-/* На телефоне весь блок строго по центру экрана, без margin-left и с общей осью. */
-@media(max-width:760px){
-  html[data-theme=p3] .intro .i-title{
-    position:absolute;
-    left:50%;right:auto;top:50%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    width:max-content;
-    max-width:calc(100vw - 28px);
-    margin:0!important;
-    padding:0;
-    text-align:center;
-    transform:translate(-50%,-50%);
-  }
-  html[data-theme=p3] .intro .i-title::before{display:none!important;}
-  html[data-theme=p3] .intro .i-sub{
-    width:100%;
-    margin:0 0 .42em;
-    text-align:center;
-    font-size:clamp(12px,3.5vw,18px);
-  }
-  html[data-theme=p3] .intro .i-word.rn.big{
-    width:max-content;
-    max-width:calc(100vw - 32px);
-    margin:0 auto!important;
-    padding:.06em .12em .08em!important;
-    justify-content:center;
-    gap:.025em;
-  }
-  html[data-theme=p3] .intro .i-word.rn.big span{
-    font-size:clamp(36px,11.5vw,78px)!important;
-  }
-  html[data-theme=p3] .intro .i-word.rn.big span:nth-last-child(-n+2){
-    flex-basis:.78em;
-    width:.78em;
-    height:.95em;
-    font-size:clamp(36px,11.5vw,78px)!important;
+  11%, 19%, 45%, 53%, 79%, 87% {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #fff;
+    text-shadow: none;
   }
 }
 
-/* 3) Верхнее меню: отдельные угловатые UI-кнопки вместо сплошной полосы. */
-html[data-theme=p3] nav{
-  justify-content:flex-end;
-  align-items:center;
-  gap:6px;
-  padding:10px 16px;
-  background:transparent!important;
+/* Mobile title: center the complete title block around the viewport midpoint.
+   Keep the v3 glyph font and glyph sizing unchanged. */
+@media (max-width:760px) {
+  html[data-theme=p3] .intro .i-title {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    top: 50% !important;
+    width: max-content !important;
+    max-width: calc(100vw - 28px) !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-self: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    transform: translate(-50%,-50%) !important;
+  }
+  html[data-theme=p3] .intro .i-title::before { display: none !important; }
+  html[data-theme=p3] .intro .i-sub {
+    width: 100%;
+    margin: 0 0 .42em !important;
+    text-align: center !important;
+  }
+  html[data-theme=p3] .intro .i-word.rn.big {
+    width: max-content !important;
+    max-width: calc(100vw - 32px) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    white-space: nowrap;
+  }
 }
-html[data-theme=p3] nav::before{content:none!important;display:none!important;}
+
+/* Liquid-glass P3 navigation: each item is its own translucent angled pane;
+   the nav container itself stays clear (no continuous bar or bottom stripe). */
+html[data-theme=p3] nav {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  gap: 7px;
+  padding: 12px 16px;
+}
 html[data-theme=p3] nav a,
-html[data-theme=p3] .lang button{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:38px;
-  padding:8px 17px;
-  color:#b9f4ff;
-  background:linear-gradient(115deg,#07195d 0%,#10399b 100%);
-  border:1px solid rgba(190,239,255,.7);
-  border-left:4px solid #16c9f5;
-  border-bottom:3px solid #06134d;
-  clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);
-  box-shadow:4px 4px 0 rgba(2,10,53,.38);
-  font:italic 900 13px/1 var(--f-rodin);
-  letter-spacing:.035em;
-  text-transform:uppercase;
-  text-decoration:none;
-  transition:background .16s,color .16s,transform .16s,box-shadow .16s;
+html[data-theme=p3] .lang button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #eafaff;
+  background:
+    radial-gradient(ellipse at 18% 0%, rgba(255,255,255,.42), transparent 48%),
+    linear-gradient(125deg, rgba(220,248,255,.27), rgba(71,155,255,.19) 38%, rgba(5,28,104,.58));
+  border: 1px solid rgba(224,248,255,.58) !important;
+  border-left: 2px solid rgba(255,255,255,.76) !important;
+  border-bottom: 1px solid rgba(131,240,255,.62) !important;
+  clip-path: polygon(10% 0,100% 0,90% 100%,0 100%);
+  -webkit-backdrop-filter: blur(14px) saturate(175%);
+  backdrop-filter: blur(14px) saturate(175%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.48),
+    inset 0 -1px 0 rgba(22,201,245,.22),
+    0 5px 14px rgba(0,8,48,.24);
+  text-shadow: 0 1px 5px rgba(2,15,70,.65);
+  transform: translateY(0);
+  transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+  animation: none !important;
 }
-html[data-theme=p3] nav a::after{
-  content:"";
-  position:absolute;
-  right:8px;top:6px;
-  width:5px;height:5px;
-  background:#ff5d9e;
-  clip-path:polygon(0 0,100% 0,100% 100%);
+html[data-theme=p3] nav a::before,
+html[data-theme=p3] .lang button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1px;
+  pointer-events: none;
+  background: linear-gradient(112deg, rgba(255,255,255,.24), transparent 30% 68%, rgba(127,230,255,.12));
+  opacity: .9;
 }
 html[data-theme=p3] nav a:hover,
+html[data-theme=p3] .lang button:hover {
+  color: #061b65;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.78), transparent 52%),
+    linear-gradient(125deg, rgba(255,255,255,.76), rgba(142,226,255,.52) 48%, rgba(69,155,245,.36));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.86),
+    inset 0 -2px 0 rgba(255,93,158,.42),
+    0 7px 18px rgba(0,8,48,.28);
+  transform: translateY(-2px);
+}
 html[data-theme=p3] nav a.cur,
-html[data-theme=p3] .lang button:hover,
-html[data-theme=p3] .lang button[aria-pressed=true]{
-  color:#071653;
-  background:linear-gradient(115deg,#fff 0%,#bceeff 100%);
-  border-color:#f6fdff;
-  border-left:4px solid #ff5d9e;
-  border-bottom:3px solid #16c9f5;
-  box-shadow:4px 4px 0 rgba(2,10,53,.5);
-  transform:translateY(-2px);
-  text-shadow:none;
-}
-html[data-theme=p3] .lang{gap:4px;margin-left:5px;}
-html[data-theme=p3] .lang button{min-width:42px;padding:8px 10px;}
-@media(max-width:760px){
-  html[data-theme=p3] nav{
-    justify-content:center;
-    gap:4px;
-    row-gap:5px;
-    padding:8px 7px;
-  }
-  html[data-theme=p3] nav a,
-  html[data-theme=p3] .lang button{
-    min-height:32px;
-    padding:6px 10px;
-    font-size:10px;
-    letter-spacing:.02em;
-  }
-  html[data-theme=p3] .lang{gap:3px;margin-left:2px;}
-  html[data-theme=p3] .lang button{min-width:34px;padding:6px 8px;}
+html[data-theme=p3] .lang button[aria-pressed=true] {
+  color: #071653;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.9), transparent 55%),
+    linear-gradient(125deg, rgba(250,254,255,.88), rgba(177,238,255,.68) 48%, rgba(73,165,255,.42));
+  border-color: rgba(255,255,255,.9) !important;
+  border-left: 3px solid #ff5d9e !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.94),
+    inset 0 -2px 0 rgba(22,201,245,.5),
+    0 6px 17px rgba(0,8,48,.3);
+  text-shadow: none;
+  transform: translateY(-1px);
 }
 
-/* 4) Message Me: не использовать символ-стрелку, который Android/iOS
-      может отрисовать как emoji. Иконка — векторный штрих в UI-кнопке. */
-html[data-theme=p3] .tg::after{
-  content:""!important;
-  position:absolute;
-  right:27px;top:50%;
-  translate:0 -50%;
-  width:34px;height:34px;
-  display:block;
-  background-color:#0a2a91;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:19px 19px;
-  border-left:3px solid #ff5d9e;
-  transform:skew(7deg);
-  font-size:0!important;
+/* Message Me uses the same liquid-glass material. Its arrow is removed. */
+html[data-theme=p3] .tg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f4fbff;
+  background:
+    radial-gradient(ellipse at 16% 0%, rgba(255,255,255,.48), transparent 48%),
+    linear-gradient(118deg, rgba(223,249,255,.3), rgba(69,154,255,.23) 42%, rgba(5,29,108,.72));
+  border: 1px solid rgba(235,250,255,.62);
+  border-left: 5px solid rgba(255,93,158,.9);
+  border-bottom: 2px solid rgba(131,240,255,.72);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.52),
+    inset 0 -1px 0 rgba(22,201,245,.26),
+    8px 8px 0 rgba(2,10,53,.36),
+    0 8px 22px rgba(0,8,48,.22);
+  text-shadow: 0 1px 8px rgba(2,15,70,.48);
+  transform: skew(-7deg);
 }
-html[data-theme=p3] .tg:hover::after{
-  background-color:#fff;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h13M12 5l7 7-7 7' fill='none' stroke='%23071653' stroke-width='2.4' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+html[data-theme=p3] .tg::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1px;
+  pointer-events: none;
+  background: linear-gradient(112deg, rgba(255,255,255,.23), transparent 31% 70%, rgba(131,240,255,.13));
+}
+html[data-theme=p3] .tg::after { content: none !important; display: none !important; }
+html[data-theme=p3] .tg { padding-right: 40px; }
+html[data-theme=p3] .tg:hover {
+  color: #071653;
+  background:
+    radial-gradient(ellipse at 16% 0%, rgba(255,255,255,.82), transparent 52%),
+    linear-gradient(118deg, rgba(255,255,255,.82), rgba(157,229,255,.64) 48%, rgba(73,165,255,.4));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -2px 0 rgba(255,93,158,.42),
+    8px 8px 0 rgba(2,10,53,.36),
+    0 10px 24px rgba(0,8,48,.25);
+  transform: skew(-7deg) translateY(-2px);
 }
 
-/* 5) Фоновые названия секций: уменьшены и полностью помещаются в область. */
+/* Section watermarks: horizontal, fully inside the section, and intentionally
+   secondary. Their full words remain visible at desktop and phone widths. */
 html[data-theme=p3] #works::after,
 html[data-theme=p3] #about::after,
 html[data-theme=p3] #frames::after,
-html[data-theme=p3] #contacts::after{
-  top:50%;
-  bottom:auto;
-  right:clamp(14px,4vw,56px);
-  left:auto;
-  width:max-content;
-  max-width:calc(100% - 28px);
-  font-size:clamp(30px,8.2vw,126px);
-  line-height:.9;
-  letter-spacing:-.045em;
-  white-space:nowrap;
-  text-align:right;
-  color:rgba(176,231,255,.18);
-  transform:translateY(-50%) rotate(-9deg);
-  transform-origin:right center;
+html[data-theme=p3] #contacts::after {
+  left: 18px !important;
+  right: 18px !important;
+  top: auto !important;
+  bottom: 12px !important;
+  width: auto !important;
+  max-width: none !important;
+  transform: none !important;
+  transform-origin: center !important;
+  text-align: right;
+  white-space: nowrap;
+  font-size: clamp(44px, 10vw, 132px) !important;
+  line-height: .82 !important;
+  letter-spacing: -.055em;
+  color: rgba(166,226,255,.17) !important;
+  opacity: 1;
+  pointer-events: none;
 }
 
-/* 6) Открытие кадра: короткий диагональный UI-wipe, затем изображение и контролы. */
-@keyframes p3-gallery-wipe-v3{
-  0%{opacity:1;clip-path:polygon(0 0,0 0,0 100%,0 100%);}
-  45%{opacity:1;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);}
-  100%{opacity:0;clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);}
-}
-@keyframes p3-gallery-image-v3{
-  0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-14px) scale(.99);}
-  72%{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(2px) scale(1.002);}
-  100%{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1);}
-}
-@keyframes p3-gallery-controls-v3{
-  0%{opacity:0;transform:translateY(9px);}
-  100%{opacity:1;transform:translateY(0);}
-}
-html[data-theme=p3] .lb{isolation:isolate;}
-html[data-theme=p3] .lb::before{
-  content:"";
-  position:absolute;z-index:0;inset:0;
-  pointer-events:none;
-  background:linear-gradient(110deg,rgba(22,201,245,.9),rgba(8,38,139,.48) 62%,rgba(255,93,158,.72));
-  clip-path:polygon(0 0,57% 0,46% 100%,0 100%);
-  opacity:0;
-}
-html[data-theme=p3] .lb.on::before{animation:p3-gallery-wipe-v3 .46s cubic-bezier(.2,.75,.25,1) both;}
-html[data-theme=p3] .lb.on #lbimg{
-  position:relative;z-index:1;
-  animation:p3-gallery-image-v3 .52s cubic-bezier(.2,.8,.25,1) .035s both!important;
-}
-html[data-theme=p3] .lb.on .nv,
-html[data-theme=p3] .lb.on .x,
-html[data-theme=p3] .lb.on .cnt{
-  animation:p3-gallery-controls-v3 .28s ease-out .13s both;
-}
-
-@media(prefers-reduced-motion:reduce){
-  html[data-theme=p3] .i-scene{animation:none!important;transform:none!important;}
-  html[data-theme=p3] .intro .i-word.rn.big span,
-  html[data-theme=p3] .intro .i-word.rn.big span::before,
-  html[data-theme=p3] .intro .i-word.rn.big span::after,
-  html[data-theme=p3] .lb.on::before,
-  html[data-theme=p3] .lb.on #lbimg,
-  html[data-theme=p3] .lb.on .nv,
-  html[data-theme=p3] .lb.on .x,
-  html[data-theme=p3] .lb.on .cnt{animation:none!important;}
+@media (max-width:760px) {
+  html[data-theme=p3] nav {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 3px;
+    padding: 8px 5px;
+  }
+  html[data-theme=p3] nav a,
+  html[data-theme=p3] .lang button {
+    flex: 0 1 auto;
+    padding: 5px 8px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  html[data-theme=p3] .lang { margin-left: 0; gap: 2px; }
+  html[data-theme=p3] .tg { transform: skew(-7deg); padding: 13px 28px 13px 26px; }
+  html[data-theme=p3] #works::after,
+  html[data-theme=p3] #about::after,
+  html[data-theme=p3] #frames::after,
+  html[data-theme=p3] #contacts::after {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 8px !important;
+    font-size: clamp(42px, 11vw, 76px) !important;
+  }
 }
 
 </style>
